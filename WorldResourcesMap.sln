@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldResourcesMap", "WorldResourcesMap\WorldResourcesMap.csproj", "{4CAD32A7-676F-4910-87D9-C6BD0903CD04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CAD32A7-676F-4910-87D9-C6BD0903CD04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CAD32A7-676F-4910-87D9-C6BD0903CD04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CAD32A7-676F-4910-87D9-C6BD0903CD04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CAD32A7-676F-4910-87D9-C6BD0903CD04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDA7EC95-7C1C-4A06-9D4C-B611B5B368E8}
+	EndGlobalSection
+EndGlobal
