@@ -1,0 +1,27 @@
+﻿<Window x:Class="WorldResourcesMap.AddEtiquetteForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:WorldResourcesMap"
+        mc:Ignorable="d"
+        Title="Dodavanje etikete" Height="250" Width="220">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Margin="10 5 10 0">Oznaka etiekete (ID)</TextBlock>
+        <TextBox Name="txtBoxId" Margin="10 5 10 0"></TextBox>
+
+        <TextBlock Margin="10 5 10 0">Opis</TextBlock>
+        <TextBox Name="txtBoxDescription" Margin="10 5 10 0"></TextBox>
+
+        <TextBlock Margin="10 5 10 0">Boja</TextBlock>
+        <xctk:ColorPicker Name="colorPicker">
+        </xctk:ColorPicker>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Margin="10 10 10 5" Click="AddEtiquette">Dodaj</Button>
+            <Button Margin="10 10 10 5" Click="CloseForm">Odustani</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

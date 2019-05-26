@@ -10,25 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WorldResourcesMap
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddEtiquetteForm.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddEtiquetteForm : Window
     {
-        public MainWindow()
+        public AddEtiquetteForm()
         {
             InitializeComponent();
         }
 
-        private void OpenAddEtiquette(object sender, RoutedEventArgs e)
+        private void AddEtiquette(object sender, RoutedEventArgs e)
         {
-            var form = new AddEtiquetteForm();
-            form.ShowDialog();
+
+        }
+
+        private void CloseForm(object sender, RoutedEventArgs e)
+        {
+            // @TODO (maybe): find better way to close dialog
+            this.Visibility = Visibility.Hidden;
         }
     }
 }

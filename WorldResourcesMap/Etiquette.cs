@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WorldResourcesMap
 {
-    public class Tag
+    public class Etiquette
     {
         public int Id { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
 
-        public Tag()
+        public Etiquette()
         {
         }
     }

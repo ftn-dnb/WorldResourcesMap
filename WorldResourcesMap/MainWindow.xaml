@@ -38,6 +38,9 @@
                         <ComboBoxItem>Mapa #4</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
+
+                <!-- Delete this button. This is just for faster form testing -->
+                <Button Click="OpenAddEtiquette">etike</Button>
             </ToolBar>
         </ToolBarTray>
         

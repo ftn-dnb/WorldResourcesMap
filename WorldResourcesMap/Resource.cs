@@ -20,7 +20,7 @@ namespace WorldResourcesMap
         public string UnitOfMeasure { get; set; }
         public float Price { get; set; }
         public DateTime DiscoveryDate { get; set; }
-        public List<Tag> tags { get; set; }
+        public List<Etiquette> tags { get; set; }
 
         public Resource()
         {
