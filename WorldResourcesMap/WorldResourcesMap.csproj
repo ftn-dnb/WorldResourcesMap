@@ -74,6 +74,9 @@
     <Compile Include="AddEtiquetteForm.xaml.cs">
       <DependentUpon>AddEtiquetteForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddResourceForm.xaml.cs">
+      <DependentUpon>AddResourceForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddResourceTypeForm.xaml.cs">
       <DependentUpon>AddResourceTypeForm.xaml</DependentUpon>
     </Compile>
@@ -81,6 +84,10 @@
     <Compile Include="ResourceType.cs" />
     <Compile Include="Etiquette.cs" />
     <Page Include="AddEtiquetteForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddResourceForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

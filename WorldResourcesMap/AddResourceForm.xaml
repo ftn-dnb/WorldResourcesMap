@@ -1,0 +1,66 @@
+﻿<Window x:Class="WorldResourcesMap.AddResourceForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldResourcesMap"
+        mc:Ignorable="d"
+        Title="AddResourceForm" Height="350" Width="550" MinHeight="350" MinWidth="550">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Margin="0 5 0 0">Oznaka resursa (ID):</TextBlock>
+                <TextBox Name="resId" Width="130" MaxWidth="130" Margin="0 5 0 0"></TextBox>
+
+                <TextBlock Margin="0 5 0 0">Naziv:</TextBlock>
+                <TextBox Name="resName" MaxWidth="130" Margin="0 5 0 0"></TextBox>
+
+                <TextBlock Margin="0 5 0 0">Opis:</TextBlock>
+                <TextBox Name="resDescription" Margin="0 5 0 0" TextWrapping="Wrap" 
+                         AcceptsReturn="True" VerticalScrollBarVisibility="Visible" MaxWidth="130" MaxHeight="50" Height="50"></TextBox>
+
+                <TextBlock Margin="0 5 0 0">Tip:</TextBlock>
+                <ComboBox Name="resType" Margin="0 5 0 0"></ComboBox>
+
+                <TextBlock Margin="0 5 0 0">Datum otkrivanja:</TextBlock>
+                <DatePicker Name="resDateFound" Margin="0 5 0 0"></DatePicker>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="20 0 20 0">
+                <TextBlock Margin="0 5 0 0">Frekvencija pojavljivanja:</TextBlock>
+                <ComboBox Name="resFrequency">
+                    <ComboBoxItem>redak</ComboBoxItem>
+                    <ComboBoxItem>cest</ComboBoxItem>
+                    <ComboBoxItem>univerzalan</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Margin="0 10 0 0">Jedinica mere:</TextBlock>
+                <ComboBox Name="resUnit">
+                    <ComboBoxItem>merica</ComboBoxItem>
+                    <ComboBoxItem>barel</ComboBoxItem>
+                    <ComboBoxItem>tona</ComboBoxItem>
+                    <ComboBoxItem>kilogram</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Margin="0 10 0 0">Cena ($):</TextBlock>
+                <TextBox Name="resPrice" MaxWidth="130" Margin="0 5 0 0"></TextBox>
+
+                <TextBox Margin="0 5 0 0">tu negde dodati i etikete</TextBox>
+
+                <CheckBox Name="resRenewable" Margin="0 5 0 0">Obnovljiv resurs</CheckBox>
+                <CheckBox Name="resStrategicImportance" Margin="0 5 0 0">Strateski bitan</CheckBox>
+                <CheckBox Name="resExploatation" Margin="0 5 0 0">Moguca eksploatacija</CheckBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Image Name="resImage" Source="./resources/images/no-image.png" Margin="0 10 0 0" Width="200" Height="200" />
+                <Button Click="AddImage" Margin="70 10 70 0">Dodaj sliku</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Click="AddResource" Margin="10 10 10 5">Dodaj</Button>
+            <Button Click="CloseForm" Margin="10 10 10 5">Odustani</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>
