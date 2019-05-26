@@ -6,18 +6,19 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WorldResourcesMap"
         mc:Ignorable="d"
-        Title="Dodavanje etikete" Height="250" Width="220">
+        Title="Dodavanje etikete" Height="270" Width="220" MinHeight="270" MinWidth="220">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Margin="10 5 10 0">Oznaka etiekete (ID)</TextBlock>
-        <TextBox Name="txtBoxId" Margin="10 5 10 0"></TextBox>
+        <TextBlock Margin="0 5 0 0">Oznaka etiekete (ID):</TextBlock>
+        <TextBox Name="txtBoxId" Margin="0 5 0 0" MaxWidth="130"></TextBox>
 
-        <TextBlock Margin="10 5 10 0">Opis</TextBlock>
-        <TextBox Name="txtBoxDescription" Margin="10 5 10 0"></TextBox>
-
-        <TextBlock Margin="10 5 10 0">Boja</TextBlock>
+        <TextBlock Margin="0 5 0 0">Boja:</TextBlock>
         <xctk:ColorPicker Name="colorPicker">
         </xctk:ColorPicker>
+        
+        <TextBlock Margin="0 5 0 0">Opis:</TextBlock>
+        <TextBox Name="txtBoxDescription" Margin="0 5 0 0" TextWrapping="Wrap" AcceptsReturn="True" 
+                 VerticalScrollBarVisibility="Visible" MaxWidth="130" MaxHeight="80" Height="80"></TextBox>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Margin="10 10 10 5" Click="AddEtiquette">Dodaj</Button>

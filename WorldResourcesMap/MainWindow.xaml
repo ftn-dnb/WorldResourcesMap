@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldResourcesMap"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Mapa svetskih resursa" Height="450" Width="800" MinHeight="450" MinWidth="800">
 
     <DockPanel>
 
@@ -41,6 +41,7 @@
 
                 <!-- Delete this button. This is just for faster form testing -->
                 <Button Click="OpenAddEtiquette">etike</Button>
+                <Button Click="OpenAddResourceType">tipovi</Button>
             </ToolBar>
         </ToolBarTray>
         

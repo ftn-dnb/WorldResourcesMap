@@ -74,10 +74,17 @@
     <Compile Include="AddEtiquetteForm.xaml.cs">
       <DependentUpon>AddEtiquetteForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddResourceTypeForm.xaml.cs">
+      <DependentUpon>AddResourceTypeForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resource.cs" />
     <Compile Include="ResourceType.cs" />
     <Compile Include="Etiquette.cs" />
     <Page Include="AddEtiquetteForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddResourceTypeForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\images\world-physical-map.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\images\no-image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
