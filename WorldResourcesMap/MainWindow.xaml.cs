@@ -31,13 +31,13 @@ namespace WorldResourcesMap
 
         private void OpenAddEtiquette(object sender, RoutedEventArgs e)
         {
-            var form = new AddEtiquetteForm();
+            var form = new AddEtiquetteForm(DataManager);
             form.ShowDialog();
         }
 
         private void OpenAddResourceType(object sender, RoutedEventArgs e)
         {
-            var form = new AddResourceTypeForm();
+            var form = new AddResourceTypeForm(DataManager);
             form.ShowDialog();
         }
 

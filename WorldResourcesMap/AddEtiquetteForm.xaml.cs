@@ -19,13 +19,22 @@ namespace WorldResourcesMap
     /// </summary>
     public partial class AddEtiquetteForm : Window
     {
-        public AddEtiquetteForm()
+        private DataManager manager;
+
+        public AddEtiquetteForm(DataManager manager)
         {
             InitializeComponent();
+            this.manager = manager;
         }
 
         private void AddEtiquette(object sender, RoutedEventArgs e)
         {
+            Etiquette etiquette = new Etiquette();
+            etiquette.Color = colorPicker.SelectedColor.Value.R.ToString() + colorPicker.SelectedColor.Value.G.ToString() + colorPicker.SelectedColor.Value.B.ToString();
+            etiquette.Id = int.Parse(txtBoxId.Text);
+            etiquette.Description = txtBoxDescription.Text;
+
+            manager.SaveEtiquette(etiquette);
 
         }
 

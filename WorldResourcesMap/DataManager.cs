@@ -48,8 +48,17 @@ namespace WorldResourcesMap
         }
 
         
+        public void SaveEtiquette(Etiquette e)
+        {
+            MapData.Etiquettes.Add(e);
+            SaveDataToFile();
+        }
 
-
+        public void SaveResourceType(ResourceType r)
+        {
+            MapData.Types.Add(r);
+            SaveDataToFile();
+        }
     }
 
 
