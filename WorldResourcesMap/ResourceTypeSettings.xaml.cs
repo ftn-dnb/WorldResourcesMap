@@ -51,17 +51,20 @@ namespace WorldResourcesMap
 
             InitializeComponent();
 
-            EnableEditForm(false);
 
             this.manager.MapData.Types.Add(new ResourceType(1, "aa", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis1"));
             this.manager.MapData.Types.Add(new ResourceType(2, "bb", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis2"));
             this.manager.MapData.Types.Add(new ResourceType(3, "cc", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis3"));
 
+            EnableEditForm(false);
             View = CollectionViewSource.GetDefaultView(this.manager.MapData.Types);
         }
 
         private void EnableEditForm(bool state)
         {
+            if (txtBoxId == null) // Komponenta jos nije inicijalizovana
+                return;
+
             txtBoxId.IsEnabled = state;
             txtBoxName.IsEnabled = state;
             txtBoxDescription.IsEnabled = state;
