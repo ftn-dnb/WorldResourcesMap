@@ -48,6 +48,12 @@ namespace WorldResourcesMap
             form.ShowDialog();
         }
 
+        private void OpenResourceTypesSettings(object sender, RoutedEventArgs e)
+        {
+            var form = new ResourceTypeSettings(DataManager);
+            form.ShowDialog();
+        }
+
         private void OpenAddResource(object sender, RoutedEventArgs e)
         {
             var form = new AddResourceForm();

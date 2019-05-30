@@ -21,7 +21,7 @@ namespace WorldResourcesMap
     public partial class AddResourceTypeForm : Window
     {
         private DataManager manager;
-        private String selectedImagePath;
+ 
         public AddResourceTypeForm(DataManager manager)
         {
             InitializeComponent();
@@ -39,7 +39,6 @@ namespace WorldResourcesMap
             if (fileDialog.ShowDialog() == true)
             {
                 resTypeImage.Source = new BitmapImage(new Uri(fileDialog.FileName));
-                selectedImagePath = fileDialog.FileName;
             }
         }
 
@@ -49,10 +48,8 @@ namespace WorldResourcesMap
             type.Id = int.Parse(resTypeId.Text);
             type.Name = resTypeName.Text;
             type.Description = resTypeDescription.Text;
-            type.Icon = selectedImagePath;
-
+            type.Icon = resTypeImage.Source.ToString();
             manager.SaveResourceType(type);
-
         }
 
         private void CloseForm(object sender, RoutedEventArgs e)

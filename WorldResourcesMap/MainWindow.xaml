@@ -13,36 +13,54 @@
             <ToolBar>
                 <Button ToolTip="">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="./resources/icons/img_resource.png" Width="32" Height="32"></Image>
-                        <TextBlock VerticalAlignment="Center" FontSize="14">Resursi</TextBlock>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="./resources/icons/img_resource.png" Width="32" Height="32"></Image>
+                            <TextBlock VerticalAlignment="Center" FontSize="14">Resursi</TextBlock>
+                        </StackPanel>
                     </StackPanel>
                 </Button>
-                <Button ToolTip="">
-                    <StackPanel Orientation="Horizontal">
+
+                <Button Click="OpenAddResource">
+                    Dodaj resurs
+                </Button>
+
+                <Separator></Separator>
+                
+                <Button ToolTip="" Click="OpenResourceTypesSettings">
+                    <StackPanel Orientation="Vertical">
                         <Image Source="./resources/icons/img_type.png" Width="32" Height="32"></Image>
                         <TextBlock VerticalAlignment="Center" FontSize="14">Tipovi</TextBlock>
                     </StackPanel>
                 </Button>
+                
+                <Button Click="OpenAddResourceType">
+                    Dodaj tip
+                </Button>
+
+                <Separator></Separator>
+                
                 <Button ToolTip="" Click="OpenEtiqetteSettings">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
                         <Image Source="./resources/icons/img_etiquette.png" Width="32" Height="32"></Image>
                         <TextBlock VerticalAlignment="Center" FontSize="14">Etikete</TextBlock>
                     </StackPanel>
                 </Button>
+                <Button Click="OpenAddEtiquette">
+                    Dodaj etiketu
+                </Button>
+
+                <Separator></Separator>
+                
                 <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
-                    <TextBlock VerticalAlignment="Center" FontSize="14">Odabir Mapa</TextBlock>
+                    <TextBlock VerticalAlignment="Center" FontSize="14">Mapa:</TextBlock>
                     <ComboBox VerticalAlignment="Center" Margin="10 0 0 0">
-                        <ComboBoxItem IsSelected="True">Mapa #1</ComboBoxItem>
-                        <ComboBoxItem>Mapa #2</ComboBoxItem>
-                        <ComboBoxItem>Mapa #3</ComboBoxItem>
-                        <ComboBoxItem>Mapa #4</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
 
-                <!-- Delete this button. This is just for faster form testing -->
-                <Button Click="OpenAddEtiquette">etike</Button>
-                <Button Click="OpenAddResourceType">tipovi</Button>
-                <Button Click="OpenAddResource">resursi</Button>
             </ToolBar>
         </ToolBarTray>
         
