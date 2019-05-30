@@ -17,7 +17,9 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         
-        <DataGrid Grid.ColumnSpan="2" Margin="10,10,10,10" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Types}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True">
+        <DataGrid Grid.ColumnSpan="2" Margin="10,10,10,10" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Types}" 
+                  IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
+                  SelectionChanged="DataGridSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
@@ -25,32 +27,28 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Column="0" Grid.Row="1"
-                    DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}" Margin="10,10,10,10">
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,10,10,10">
+            <TextBlock>Oznaka:</TextBlock>
+            <TextBox Name="txtBoxId"></TextBox>
 
-                <TextBlock>Oznaka:</TextBlock>
-                <TextBox Text="{Binding Path=Id}"></TextBox>
+            <TextBlock >Naziv:</TextBlock>
+            <TextBox Name="txtBoxName"></TextBox>
 
-                <TextBlock >Naziv:</TextBlock>
-                <TextBox Text="{Binding Path=Name}"></TextBox>
-
-                <TextBlock>Opis:</TextBlock>
-            <TextBox Text="{Binding Path=Description}" TextWrapping="Wrap" Height="80" MaxHeight="80"
+            <TextBlock>Opis:</TextBlock>
+            <TextBox Name="txtBoxDescription" TextWrapping="Wrap" Height="80" MaxHeight="80"
                     AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical"
-                    DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
-            
-            <Image Name="resTypeImage" Source="{Binding Icon}" Margin="0 10 0 0" Width="150" Height="150" />
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <Image Name="resTypeImage" Margin="0 10 0 0" Width="150" Height="150" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Click="AddImage" Width="70" Margin="5">Izmeni sliku</Button>
-                <Button Click="RemoveImage" Width="70" Margin="5">Obriši sliku</Button>
+                <Button Name="btnChangeImage" Click="AddImage" Width="70" Margin="5">Izmeni sliku</Button>
+                <Button Name="btnRemoveImage" Click="RemoveImage" Width="70" Margin="5">Obriši sliku</Button>
             </StackPanel>
                 
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="5,15,5,5" Click="EditItem">Izmeni</Button>
-                <Button Margin="5,15,5,5" Click="DeleteItem">Obriši</Button>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Name="btnEditType" Margin="5,15,5,5" Click="EditItem">Izmeni</Button>
+                <Button Name="btnRemoveType" Margin="5,15,5,5" Click="DeleteItem">Obriši</Button>
             </StackPanel>
         </StackPanel>
 
