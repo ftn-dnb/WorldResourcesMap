@@ -26,7 +26,8 @@ namespace WorldResourcesMap
         {
             InitializeComponent();
             DataManager = new DataManager();
-            DataManager.SaveDataToFile();
+            //DataManager.SaveDataToFile();
+            
         }
 
         private void OpenAddEtiquette(object sender, RoutedEventArgs e)
