@@ -30,7 +30,7 @@ namespace WorldResourcesMap
         private void AddEtiquette(object sender, RoutedEventArgs e)
         {
             Etiquette etiquette = new Etiquette();
-            etiquette.Color = colorPicker.SelectedColor.Value.R.ToString() + colorPicker.SelectedColor.Value.G.ToString() + colorPicker.SelectedColor.Value.B.ToString();
+            etiquette.Color = colorPicker.Background;
             etiquette.Id = int.Parse(txtBoxId.Text);
             etiquette.Description = txtBoxDescription.Text;
 

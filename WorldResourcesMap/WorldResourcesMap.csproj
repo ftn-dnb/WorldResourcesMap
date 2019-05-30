@@ -85,6 +85,9 @@
       <DependentUpon>AddResourceTypeForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataManager.cs" />
+    <Compile Include="EtiquetteSettings.xaml.cs">
+      <DependentUpon>EtiquetteSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MapData.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="ResourceType.cs" />
@@ -98,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddResourceTypeForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EtiquetteSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace WorldResourcesMap
 {
@@ -86,13 +87,13 @@ namespace WorldResourcesMap
 
         public void ReadResources()
         {
-            List<Resource> resourceList = new List<Resource>();
+            ObservableCollection<Resource> resourceList = new ObservableCollection<Resource>();
             if (File.Exists(resourcePath))
             {
                 using (StreamReader reader = new StreamReader(resourcePath))
                 {
                     string data = reader.ReadToEnd();
-                    resourceList = JsonConvert.DeserializeObject<List<Resource>>(data);
+                    resourceList = JsonConvert.DeserializeObject<ObservableCollection<Resource>>(data);
                 }
 
                 MapData.Resources = resourceList;
@@ -102,12 +103,12 @@ namespace WorldResourcesMap
 
         public void ReadResourcesTypes()
         {
-            List<ResourceType> typeList = new List<ResourceType>();
+            ObservableCollection<ResourceType> typeList = new ObservableCollection<ResourceType>();
             if (File.Exists(resourceTypePath)){
                 using (StreamReader reader = new StreamReader(resourceTypePath))
                 {
                     string data = reader.ReadToEnd();
-                    typeList = JsonConvert.DeserializeObject<List<ResourceType>>(data);
+                    typeList = JsonConvert.DeserializeObject<ObservableCollection<ResourceType>>(data);
                 }
 
                 MapData.Types = typeList;
@@ -117,13 +118,13 @@ namespace WorldResourcesMap
 
         public void ReadEtiquette()
         {
-            List<Etiquette> etiquetteList = new List<Etiquette>();
+            ObservableCollection<Etiquette> etiquetteList = new ObservableCollection<Etiquette>();
             if (File.Exists(etiquettePath))
             {
                 using (StreamReader reader = new StreamReader(etiquettePath))
                 {
                     string data = reader.ReadToEnd();
-                    etiquetteList = JsonConvert.DeserializeObject<List<Etiquette>>(data);
+                    etiquetteList = JsonConvert.DeserializeObject<ObservableCollection<Etiquette>>(data);
                 }
 
                 MapData.Etiquettes = etiquetteList;

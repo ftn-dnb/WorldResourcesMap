@@ -23,7 +23,7 @@
                         <TextBlock VerticalAlignment="Center" FontSize="14">Tipovi</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button ToolTip="">
+                <Button ToolTip="" Click="OpenEtiqetteSettings">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="./resources/icons/img_etiquette.png" Width="32" Height="32"></Image>
                         <TextBlock VerticalAlignment="Center" FontSize="14">Etikete</TextBlock>

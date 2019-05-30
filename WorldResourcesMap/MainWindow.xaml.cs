@@ -29,6 +29,12 @@ namespace WorldResourcesMap
             //DataManager.SaveDataToFile();
             
         }
+        private void OpenEtiqetteSettings(object sender, RoutedEventArgs e)
+        {
+            var form = new EtiquetteSettings(DataManager);
+            form.ShowDialog();
+        }
+
 
         private void OpenAddEtiquette(object sender, RoutedEventArgs e)
         {
