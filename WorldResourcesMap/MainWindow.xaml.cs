@@ -20,9 +20,13 @@ namespace WorldResourcesMap
     /// </summary>
     public partial class MainWindow : Window
     {
+        public DataManager DataManager { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            DataManager = new DataManager();
+            DataManager.SaveDataToFile();
         }
 
         private void OpenAddEtiquette(object sender, RoutedEventArgs e)
