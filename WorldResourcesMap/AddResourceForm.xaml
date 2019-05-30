@@ -26,7 +26,7 @@
                 <DatePicker Name="resDateFound" Margin="0 5 0 0"></DatePicker>
             </StackPanel>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="20 0 20 0">
+            <StackPanel Orientation="Vertical" Margin="20 0 20 0">
                 <TextBlock Margin="0 5 0 0">Frekvencija pojavljivanja:</TextBlock>
                 <ComboBox Name="resFrequency">
                     <ComboBoxItem>redak</ComboBoxItem>
@@ -42,8 +42,16 @@
                     <ComboBoxItem>kilogram</ComboBoxItem>
                 </ComboBox>
 
+                <TextBlock Margin="0 10 0 0">Mapa:</TextBlock>
+                <ComboBox Name="resMap">
+                    <ComboBoxItem>1</ComboBoxItem>
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>3</ComboBoxItem>
+                    <ComboBoxItem>4</ComboBoxItem>
+                </ComboBox>
+
                 <TextBlock Margin="0 10 0 0">Cena ($):</TextBlock>
-                <TextBox Name="resPrice" MaxWidth="130" Margin="0 5 0 0"></TextBox>
+                <TextBox Name="resPrice" Width="130" MaxWidth="130" Margin="0 5 0 0"></TextBox>
 
                 <TextBox Margin="0 5 0 0">tu negde dodati i etikete</TextBox>
 
