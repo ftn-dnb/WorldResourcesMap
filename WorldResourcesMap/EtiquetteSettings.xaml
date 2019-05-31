@@ -15,19 +15,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid Margin="10,10,10,10" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Etiquettes}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True">
+        <DataGrid Margin="10,10,10,10" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Etiquettes}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" SelectionChanged="EtiquetteSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Boja" Width="*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Background" Value="{Binding Color}" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Color}">
-                                    <Setter Property="Background" Value="{Binding Color}" />
-                                </DataTrigger>
-
-                            </Style.Triggers>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
@@ -36,14 +30,13 @@
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="1" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}" Margin="10,10,10,10">
             <TextBlock>Oznaka:</TextBlock>
-            <TextBox Text="{Binding Path=Id}"></TextBox>
+            <TextBox Name="idTextBox"></TextBox>
             <TextBlock >Boja:</TextBlock>
-            <xctk:ColorPicker Name="colorPicker" Background="{Binding Path=Color}">
-            </xctk:ColorPicker>
+            <xctk:ColorPicker Name="colorPicker"></xctk:ColorPicker>
             <TextBlock>Opis:</TextBlock>
-            <TextBox Text="{Binding Path=Description}"></TextBox>
+            <TextBox Name="descTextBox"></TextBox>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="5,5,5,5">Izmeni</Button>
+                <Button Margin="5,5,5,5" Click="ChangeItem">Izmeni</Button>
                 <Button Margin="5,5,5,5" Click="DeleteItem">Obriši</Button>
             </StackPanel>
         </StackPanel>

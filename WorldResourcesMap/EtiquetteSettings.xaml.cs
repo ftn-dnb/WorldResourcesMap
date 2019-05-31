@@ -25,17 +25,47 @@ namespace WorldResourcesMap
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string info)
         {
-           
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
-            
         }
 
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
             Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
+
+            if (MessageBox.Show("Da li ste sigurni da želite da obrišete tip resursa sa oznakom " + etiquette.Id + " ?",
+                "Upozorenje o brisanju", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+
             this.manager.MapData.Etiquettes.Remove(etiquette);
             //TODO: potrebno je sacuvati izmjenu u JSON fajl ( nova metoda )
-      
+        }
+
+        private void ChangeItem(object sender, RoutedEventArgs e)
+        {
+            Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
+
+            if (MessageBox.Show("Da li ste sigurni da želite da izmenite podatake za tip resursa sa oznakom " + etiquette.Id + " ?",
+                "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            etiquette.Id = int.Parse(idTextBox.Text);
+            etiquette.Color = new SolidColorBrush(colorPicker.SelectedColor.Value);
+            
+            etiquette.Description = descTextBox.Text;
+        }
+
+        private void EtiquetteSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
+            idTextBox.Text = etiquette.Id.ToString();
+            colorPicker.Background = etiquette.Color;
+            descTextBox.Text = etiquette.Description;
         }
 
         private ICollectionView _View;
