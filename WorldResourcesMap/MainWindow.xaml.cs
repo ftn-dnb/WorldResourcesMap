@@ -52,7 +52,7 @@ namespace WorldResourcesMap
 
             foreach (Resource resource in query)
             {
-                if (resource.X != -1 && resource.Y != -1)
+                if (resource.X != -1 && resource.Y != -1) // Resource is on the map
                 {
                     ResourcesOnMap.Add(resource);
                     AddIconToMap(resource);
@@ -154,11 +154,11 @@ namespace WorldResourcesMap
             }
         }
 
-        private Resource ClickedResource(int x, int y) 
+        private Resource FindResourceOnMap(int x, int y) 
         {
             foreach (Resource resource in ResourcesOnMap) 
             {
-                if (Math.Sqrt(Math.Pow((x - resource.X - OFFSET), 2) + Math.Pow((y - resource.Y - OFFSET), 2)) < 1 * OFFSET)
+                if (Math.Sqrt(Math.Pow((x - resource.X - OFFSET), 2) + Math.Pow((y - resource.Y - OFFSET), 2)) < OFFSET)
                     return resource;
             }
 
@@ -168,6 +168,15 @@ namespace WorldResourcesMap
         private void CanvasMap_Drop(object sender, DragEventArgs e)
         {
             Point dropPosition = e.GetPosition(CanvasMap);
+
+            Resource res = FindResourceOnMap((int)dropPosition.X, (int)dropPosition.Y);
+            if (res != null)
+            {
+                MessageBox.Show("Ne možete postaviti resurs na ovu lokaciju zato što je ona već zauzeta.",
+                                "Zauzeta lokacija", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
 
             if (!e.Data.GetDataPresent("ListToCanvas") || sender == e.Source)
             {
@@ -201,7 +210,7 @@ namespace WorldResourcesMap
                 resource.X = (int)dropPosition.X;
                 resource.Y = (int)dropPosition.Y;
 
-                // @TODO dodati cuvanje u fajl jer smo promenili X i Y koordinate resursa
+                DataManager.SaveResources();
 
                 AddIconToMap(resource);
             }
@@ -233,7 +242,7 @@ namespace WorldResourcesMap
             Resource dataObject = null;
             Point mousePos = e.GetPosition(map);
 
-            dataObject = ClickedResource((int)mousePos.X, (int)mousePos.Y);
+            dataObject = FindResourceOnMap((int)mousePos.X, (int)mousePos.Y);
 
             if (dataObject != null)
             {
