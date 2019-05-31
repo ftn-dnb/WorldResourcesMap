@@ -1,15 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WorldResourcesMap
 {
-    public class Resource
+    public class Resource : INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private string name;
+        private int id;
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    OnPropertyChanged("id");
+                }
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (value != name)
+                {
+                    name = value;
+                    OnPropertyChanged("name");
+                }
+            }
+        }
         public string Description { get; set; }
         public ResourceType Type { get; set; }
         public string Frequency { get; set; } // @TODO mozda staviti kao enum ?
