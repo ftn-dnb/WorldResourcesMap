@@ -74,25 +74,34 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Path=ResourcesList}" 
-                          PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Tag="{Binding Id}">
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <ScrollViewer Grid.Row="0" Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding Path=ResourcesList}" 
+                              PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}" Width="30" Height="30" Margin="0 0 5 0"></Image>
+
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Oznaka: " FontWeight="Bold" />
+                                            <TextBlock Text="{Binding Id}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Naziv: " FontWeight="Bold" />
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
                 
                 <ScrollViewer Grid.Row="0" Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <Canvas Name="CanvasMap" Width="{Binding ActualWidth, ElementName=image}" Height="{Binding ActualHeight, ElementName=image}" 
-                            PreviewMouseLeftButtonDown="CanvasMap_PreviewMouseLeftButtonDown"
-                            MouseMove="CanvasMap_MouseMove"
-                            DragEnter="CanvasMap_DragEnter"
-                            Drop="CanvasMap_Drop"
+                            AllowDrop="True" DragEnter="CanvasMap_DragEnter" Drop="CanvasMap_Drop" 
                             MouseLeftButtonDown="CanvasMap_MouseLeftButtonDown">
-                        
                         <Canvas.Background>
                             <VisualBrush  >
                                 <VisualBrush.Visual>

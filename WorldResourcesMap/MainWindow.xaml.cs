@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WorldResourcesMap
 {
@@ -24,7 +17,7 @@ namespace WorldResourcesMap
     {
         Point startPoint = new Point();
 
-        private const int ICON_SIZE = 70;
+        private const int ICON_SIZE = 30;
         private const int OFFSET = ICON_SIZE / 2;
 
         public DataManager DataManager { get; set; }
@@ -40,6 +33,7 @@ namespace WorldResourcesMap
             this.DataContext = this;
 
             ResourcesList = new ObservableCollection<Resource>();
+            ResourcesOnMap = new ObservableCollection<Resource>();
 
             FindElementsForCurrentMap("1");
         }
@@ -53,9 +47,21 @@ namespace WorldResourcesMap
                                     select r).ToList();
 
             ResourcesList.Clear();
+            ResourcesOnMap.Clear();
+            CanvasMap.Children.Clear();
 
             foreach (Resource resource in query)
-                ResourcesList.Add(resource);
+            {
+                if (resource.X != -1 && resource.Y != -1)
+                {
+                    ResourcesOnMap.Add(resource);
+                    AddIconToMap(resource);
+                }
+                else
+                {
+                    ResourcesList.Add(resource);
+                }
+            }
         }
 
         private void OpenEtiqetteSettings(object sender, RoutedEventArgs e)
@@ -63,7 +69,6 @@ namespace WorldResourcesMap
             var form = new EtiquetteSettings(DataManager);
             form.ShowDialog();
         }
-
 
         private void OpenAddEtiquette(object sender, RoutedEventArgs e)
         {
@@ -100,42 +105,58 @@ namespace WorldResourcesMap
             FindElementsForCurrentMap(value);
         }
 
-
-        private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) 
+        private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             startPoint = e.GetPosition(null);
+        }
 
-            StackPanel panel = sender as StackPanel;
-            Resource dataObject = null;
+        private void ListView_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
 
-            foreach (Resource resource in ResourcesList)
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
-                if ((int)panel.Tag == resource.Id)
-                {
-                    dataObject = resource;
-                    break;
-                }
+                ListView listView = sender as ListView;
+                ListViewItem listViewItem = FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
+
+                if (listViewItem == null)
+                    return;
+
+                Resource resource = (Resource)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+
+                DataObject dragData = new DataObject("ListToCanvas", resource);
+                DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
             }
-
-            DataObject data = new DataObject("dd", dataObject);
-            DragDrop.DoDragDrop(panel, data, DragDropEffects.Move);
         }
 
-        private void CanvasMap_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
         {
-        }
-
-        private void CanvasMap_MouseMove(object sender, MouseEventArgs e)
-        {
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
         }
 
         private void CanvasMap_DragEnter(object sender, DragEventArgs e)
         {
+            if (!e.Data.GetDataPresent("ListToCanvas") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
         }
 
-        private Resource ClickedResource(int x, int y)   //vraca kliknutu vrstu na kanvasu
+        private Resource ClickedResource(int x, int y) 
         {
-            foreach (Resource resource in ResourcesList)   //prolazim kroz vrste spustene na kanvas
+            foreach (Resource resource in ResourcesOnMap) 
             {
                 if (Math.Sqrt(Math.Pow((x - resource.X - OFFSET), 2) + Math.Pow((y - resource.Y - OFFSET), 2)) < 1 * OFFSET)
                     return resource;
@@ -148,43 +169,59 @@ namespace WorldResourcesMap
         {
             Point dropPosition = e.GetPosition(CanvasMap);
 
-            if (ClickedResource((int)dropPosition.X, (int)dropPosition.Y) != null)
-                return;
-
-            if (e.Data.GetDataPresent("dd"))    //sa panela na kanvas
+            if (!e.Data.GetDataPresent("ListToCanvas") || sender == e.Source)
             {
-                Resource resource = e.Data.GetData("dd") as Resource;
+                e.Effects = DragDropEffects.None;
 
-                ResourcesList.Remove(resource);
+                Resource resource = e.Data.GetData("ListToCanvas") as Resource;
 
-                resource.X = (int)dropPosition.X - OFFSET;
-                resource.Y = (int)dropPosition.Y - OFFSET;
-
-                // @TODO dodati cuvanje u fajl
-
-                ResourcesOnMap.Add(resource);
-
-                Canvas canvas = this.CanvasMap;
-
-                Image icon = new Image
+                if (resource == null)
                 {
-                    Width = ICON_SIZE,
-                    Height = ICON_SIZE,
-                    Uid = resource.Id.ToString(),
-                    Source = new BitmapImage(new Uri(resource.Icon, UriKind.Absolute))
-                };
+                    resource = e.Data.GetData("CanvasToCanvas") as Resource;
 
-                icon.ToolTip = resource.Id; // @TODO: Promeniti tooltip
+                    UIElement iconToRemove = null;
 
+                    foreach (UIElement element in CanvasMap.Children)
+                    {
+                        if (element.Uid == resource.Id.ToString())
+                        {
+                            iconToRemove = element;
+                            break;
+                        }
+                    }
 
-                canvas.Children.Add(icon);
+                    CanvasMap.Children.Remove(iconToRemove);
+                }
+                else
+                {
+                    ResourcesList.Remove(resource);
+                    ResourcesOnMap.Add(resource);
+                }
 
-                Canvas.SetLeft(icon, resource.X);
-                Canvas.SetTop(icon, resource.Y);
+                resource.X = (int)dropPosition.X;
+                resource.Y = (int)dropPosition.Y;
 
-                return;
+                // @TODO dodati cuvanje u fajl jer smo promenili X i Y koordinate resursa
+
+                AddIconToMap(resource);
             }
+        }
 
+        private void AddIconToMap(Resource resource)
+        {
+            Image icon = new Image
+            {
+                Width = ICON_SIZE,
+                Height = ICON_SIZE,
+                Uid = resource.Id.ToString(),
+                Source = new BitmapImage(new Uri(resource.Icon))
+            };
+
+            icon.ToolTip = "Oznaka: " + resource.Id.ToString() + "\nNaziv: " + resource.Name;
+
+            CanvasMap.Children.Add(icon);
+            Canvas.SetLeft(icon, resource.X);
+            Canvas.SetTop(icon, resource.Y);
         }
 
         private void CanvasMap_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -194,15 +231,16 @@ namespace WorldResourcesMap
             Canvas map = sender as Canvas;
 
             Resource dataObject = null;
-            Point mousePosition = e.GetPosition(CanvasMap);
+            Point mousePos = e.GetPosition(map);
 
-            dataObject = ClickedResource((int)mousePosition.X, (int)mousePosition.Y);
+            dataObject = ClickedResource((int)mousePos.X, (int)mousePos.Y);
 
             if (dataObject != null)
             {
-                DataObject data = new DataObject("dd", dataObject);
+                DataObject data = new DataObject("CanvasToCanvas", dataObject);
                 DragDrop.DoDragDrop(map, data, DragDropEffects.Move);
             }
         }
+
     }
 }
