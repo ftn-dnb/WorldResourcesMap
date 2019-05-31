@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace WorldResourcesMap
 {
@@ -21,6 +22,20 @@ namespace WorldResourcesMap
         {
             MapData = new MapData();
             ReadDataFromFile();
+        }
+        private int counter = 0;
+        public void resetCounter()
+        {
+            counter = 0;
+        }
+        public AutoCompleteFilterPredicate<object> EtiquetteFilter
+        {
+            get
+            {
+                return (searchText, obj) =>
+                (obj as Etiquette).Id.ToString().StartsWith(searchText)
+                && counter++ < 5;
+            }
         }
 
 

@@ -5,17 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WorldResourcesMap"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         mc:Ignorable="d"
         Title="Upravljanje postojećim etiketama" Height="400" Width="350" MinHeight="300" MinWidth="300" MaxHeight="450" MaxWidth="400" Name="winTable">
+    <Window.Resources>
+        <DataTemplate x:Key="CustomTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Id}"
+                       Width="100" />
+                <Label Content="{Binding Description}"
+                       FontStyle="Italic"
+                       Foreground="DarkGray" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid Margin="10,10,10,10" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Etiquettes}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" SelectionChanged="EtiquetteSelectionChanged">
+        <toolkit:AutoCompleteBox ItemsSource="{Binding MapData.Etiquettes}"
+                                 ValueMemberPath="Id"
+                                 ItemTemplate="{StaticResource CustomTemplate}"
+                                 ItemFilter="{Binding EtiquetteFilter}"
+                                 IsTextCompletionEnabled="True"
+                                 VerticalAlignment="Center"
+                                 ToolTip="Pretraži etiketu po oznaci.."
+                                 Text="Pretraga etikete.."
+                                 Margin="5,5,5,5"
+                                 x:Name="Search" KeyUp="keyUpSearch">
+        </toolkit:AutoCompleteBox>
+        <DataGrid Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Etiquettes}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" SelectionChanged="EtiquetteSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Boja" Width="*">
@@ -28,7 +52,7 @@
                 <DataGridTextColumn Header="Opis" Width="*" Binding="{Binding Description}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Column="0" Grid.Row="1" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}" Margin="10,10,10,10">
+        <StackPanel Grid.Column="0" Grid.Row="2" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}" Margin="10,10,10,10">
             <TextBlock>Oznaka:</TextBlock>
             <TextBox Name="idTextBox"></TextBox>
             <TextBlock >Boja:</TextBlock>
