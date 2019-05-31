@@ -30,7 +30,7 @@ namespace WorldResourcesMap
 
         private void keyUpSearch(object sender, RoutedEventArgs e)
         {
-            this.manager.resetCounter();
+            this.manager.resetEtiquetteCounter();
             var filtered = this.manager.MapData.Etiquettes.Where(et => et.Id.ToString().StartsWith(Search.Text));
             dgrMain.ItemsSource = filtered;
         }

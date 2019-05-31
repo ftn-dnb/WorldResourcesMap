@@ -30,6 +30,13 @@ namespace WorldResourcesMap
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
 
+        private void keyUpSearch(object sender, RoutedEventArgs e)
+        {
+            this.manager.resetTypeCounter();
+            var filtered = this.manager.MapData.Types.Where(ty => ty.Name.StartsWith(Search.Text));
+            dgrMain.ItemsSource = filtered;
+        }
+
         private ICollectionView _View;
         public ICollectionView View
         {
@@ -52,9 +59,9 @@ namespace WorldResourcesMap
             InitializeComponent();
 
 
-            this.manager.MapData.Types.Add(new ResourceType(1, "aa", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis1"));
-            this.manager.MapData.Types.Add(new ResourceType(2, "bb", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis2"));
-            this.manager.MapData.Types.Add(new ResourceType(3, "cc", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis3"));
+            //this.manager.MapData.Types.Add(new ResourceType(1, "aa", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis1"));
+            //this.manager.MapData.Types.Add(new ResourceType(2, "bb", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis2"));
+            //this.manager.MapData.Types.Add(new ResourceType(3, "cc", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis3"));
 
             EnableEditForm(false);
             View = CollectionViewSource.GetDefaultView(this.manager.MapData.Types);
@@ -135,10 +142,15 @@ namespace WorldResourcesMap
             if (txtBoxId == null) // Komponenta jos nije inicijalizovana
                 return;
 
-            txtBoxId.Text = item.Id.ToString();
-            txtBoxName.Text = item.Name;
-            txtBoxDescription.Text = item.Description;
-            resTypeImage.Source = new BitmapImage(new Uri(item.Icon));
+            try
+            {
+                txtBoxId.Text = item.Id.ToString();
+                txtBoxName.Text = item.Name;
+                txtBoxDescription.Text = item.Description;
+                resTypeImage.Source = new BitmapImage(new Uri(item.Icon));
+            }
+            catch (Exception ex) { }
+            
         }
     }
 }
