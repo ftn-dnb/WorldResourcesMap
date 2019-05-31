@@ -21,6 +21,7 @@ namespace WorldResourcesMap
         public float Price { get; set; }
         public DateTime DiscoveryDate { get; set; }
         public List<Etiquette> tags { get; set; }
+        public int MapID { get; set; }// treba staviti da bude lista jer ima 4 mape
 
         public Resource()
         {

@@ -94,6 +94,7 @@ namespace WorldResourcesMap
                 {
                     string data = reader.ReadToEnd();
                     resourceList = JsonConvert.DeserializeObject<ObservableCollection<Resource>>(data);
+                    //ubaci za null
                 }
 
                 MapData.Resources = resourceList;
