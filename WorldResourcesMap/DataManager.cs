@@ -84,6 +84,38 @@ namespace WorldResourcesMap
             }
         }
 
+        public void SaveResources()
+        {
+
+            string dataString = JsonConvert.SerializeObject(MapData.Resources);
+            using(StreamWriter writer = new StreamWriter(resourcePath))
+            {
+                writer.Write(dataString);
+            }
+        }
+
+        public void SaveEtiquettes()
+        {
+
+            string dataString = JsonConvert.SerializeObject(MapData.Etiquettes);
+            using (StreamWriter writer = new StreamWriter(etiquettePath))
+            {
+                writer.Write(dataString);
+            }
+        }
+
+
+        public void SaveResourceTypes()
+        {
+
+            string dataString = JsonConvert.SerializeObject(MapData.Types);
+            using (StreamWriter writer = new StreamWriter(resourcePath))
+            {
+                writer.Write(dataString);
+            }
+        }
+
+
 
         public void ReadResources()
         {
@@ -93,7 +125,9 @@ namespace WorldResourcesMap
                 using (StreamReader reader = new StreamReader(resourcePath))
                 {
                     string data = reader.ReadToEnd();
-                    resourceList = JsonConvert.DeserializeObject<ObservableCollection<Resource>>(data);
+                    if(!data.Equals(""))
+                        resourceList = JsonConvert.DeserializeObject<ObservableCollection<Resource>>(data);
+                    //ubaci za null
                 }
 
                 MapData.Resources = resourceList;
@@ -108,7 +142,8 @@ namespace WorldResourcesMap
                 using (StreamReader reader = new StreamReader(resourceTypePath))
                 {
                     string data = reader.ReadToEnd();
-                    typeList = JsonConvert.DeserializeObject<ObservableCollection<ResourceType>>(data);
+                    if (!data.Equals(""))
+                        typeList = JsonConvert.DeserializeObject<ObservableCollection<ResourceType>>(data);
                 }
 
                 MapData.Types = typeList;
@@ -124,7 +159,8 @@ namespace WorldResourcesMap
                 using (StreamReader reader = new StreamReader(etiquettePath))
                 {
                     string data = reader.ReadToEnd();
-                    etiquetteList = JsonConvert.DeserializeObject<ObservableCollection<Etiquette>>(data);
+                    if (!data.Equals(""))
+                        etiquetteList = JsonConvert.DeserializeObject<ObservableCollection<Etiquette>>(data);
                 }
 
                 MapData.Etiquettes = etiquetteList;

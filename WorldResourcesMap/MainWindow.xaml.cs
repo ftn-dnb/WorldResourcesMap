@@ -56,7 +56,7 @@ namespace WorldResourcesMap
 
         private void OpenAddResource(object sender, RoutedEventArgs e)
         {
-            var form = new AddResourceForm();
+            var form = new AddResourceForm(DataManager);
             form.ShowDialog();
         }
         

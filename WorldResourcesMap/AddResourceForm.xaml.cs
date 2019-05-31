@@ -20,9 +20,13 @@ namespace WorldResourcesMap
     /// </summary>
     public partial class AddResourceForm : Window
     {
-        public AddResourceForm()
+
+        private DataManager manager;
+        public AddResourceForm(DataManager manager)
         {
             InitializeComponent();
+            this.manager = manager;
+            this.DataContext = this.manager;
         }
 
         private void AddImage(object sender, RoutedEventArgs e)
@@ -41,6 +45,28 @@ namespace WorldResourcesMap
 
         private void AddResource(object sender, RoutedEventArgs e)
         {
+           
+
+            // dodati proveru
+            Resource resource = new Resource();
+            resource.Id = int.Parse(resId.Text);
+            resource.Name = resName.Text;
+            resource.Description = resDescription.Text;
+            resource.Type = (ResourceType)resType.SelectedItem;
+            resource.DiscoveryDate = (DateTime)resDateFound.SelectedDate;
+            resource.Frequency = resFrequency.SelectionBoxItem.ToString();
+            resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
+            resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString()); 
+            resource.Price = int.Parse(resPrice.Text);
+            resource.Icon = resImage.Source.ToString();
+
+            resource.Renewable = (bool)resRenewable.IsChecked;
+            resource.StrategicImportance = (bool)resStrategicImportance.IsChecked;
+            resource.Exploitation = (bool)resExploatation.IsChecked;
+
+
+            manager.SaveResource(resource);
+
 
         }
 
