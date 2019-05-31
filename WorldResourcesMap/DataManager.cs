@@ -23,10 +23,20 @@ namespace WorldResourcesMap
             MapData = new MapData();
             ReadDataFromFile();
         }
-        private int counter = 0;
-        public void resetCounter()
+        private int etiquetteCounter = 0;
+        private int typeCounter = 0;
+        private int resourceCounter = 0;
+        public void resetEtiquetteCounter()
         {
-            counter = 0;
+            etiquetteCounter = 0;
+        }
+        public void resetTypeCounter()
+        {
+            typeCounter = 0;
+        }
+        public void resetResourceCounter()
+        {
+            resourceCounter = 0;
         }
         public AutoCompleteFilterPredicate<object> EtiquetteFilter
         {
@@ -34,7 +44,17 @@ namespace WorldResourcesMap
             {
                 return (searchText, obj) =>
                 (obj as Etiquette).Id.ToString().StartsWith(searchText)
-                && counter++ < 5;
+                && etiquetteCounter++ < 5;
+            }
+        }
+
+        public AutoCompleteFilterPredicate<object> TypeFilter
+        {
+            get
+            {
+                return (searchText, obj) =>
+                (obj as ResourceType).Name.StartsWith(searchText)
+                && typeCounter++ < 5;
             }
         }
 
