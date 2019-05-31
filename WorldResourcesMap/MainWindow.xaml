@@ -11,7 +11,7 @@
 
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button ToolTip="">
+                <Button ToolTip="Upravljanje resursima (izmena i brisanje)">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical">
                             <Image Source="./resources/icons/img_resource.png" Width="32" Height="32"></Image>
@@ -20,38 +20,39 @@
                     </StackPanel>
                 </Button>
 
-                <Button Click="OpenAddResource">
+                <Button Click="OpenAddResource" ToolTip="Dodavanje novog resursa">
                     Dodaj resurs
                 </Button>
 
                 <Separator></Separator>
                 
-                <Button ToolTip="" Click="OpenResourceTypesSettings">
+                <Button Click="OpenResourceTypesSettings" ToolTip="Upravljanje tipovima resursa (izmena i brisanje)">
                     <StackPanel Orientation="Vertical">
                         <Image Source="./resources/icons/img_type.png" Width="32" Height="32"></Image>
                         <TextBlock VerticalAlignment="Center" FontSize="14">Tipovi</TextBlock>
                     </StackPanel>
                 </Button>
                 
-                <Button Click="OpenAddResourceType">
+                <Button Click="OpenAddResourceType" ToolTip="Dodavanje novog tipa resursa">
                     Dodaj tip
                 </Button>
 
                 <Separator></Separator>
                 
-                <Button ToolTip="" Click="OpenEtiqetteSettings">
+                <Button Click="OpenEtiqetteSettings" ToolTip="Upravljanje etiketama (izmena i brisanje)">
                     <StackPanel Orientation="Vertical">
                         <Image Source="./resources/icons/img_etiquette.png" Width="32" Height="32"></Image>
                         <TextBlock VerticalAlignment="Center" FontSize="14">Etikete</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Click="OpenAddEtiquette">
+                
+                <Button Click="OpenAddEtiquette" ToolTip="Dodavanje nove etikete">
                     Dodaj etiketu
                 </Button>
 
                 <Separator></Separator>
                 
-                <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
+                <StackPanel Orientation="Horizontal" Margin="20 0 0 0" ToolTip="Biranje mape za prikaz">
                     <TextBlock VerticalAlignment="Center" FontSize="14">Mapa:</TextBlock>
                     <ComboBox Name="cbMap" SelectionChanged="ChangedMapEvent" VerticalAlignment="Center" Margin="10 0 0 0">
                         <ComboBoxItem IsSelected="True">1</ComboBoxItem>
@@ -75,12 +76,38 @@
                 </Grid.RowDefinitions>
 
                 <ScrollViewer Grid.Row="0" Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding Path=ResourcesList}" 
+                    <ListView ItemsSource="{Binding Path=ResourcesList}" ToolTip="Lista dostupnih resursa na trenutno aktivnoj mapi" 
                               PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Icon}" Width="30" Height="30" Margin="0 0 5 0"></Image>
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="ToolTip" Value="Resurs nije na mapi" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding OnMap}" Value="True">
+                                                    <Setter Property="ToolTip" Value="Resurs je na mapi" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <CheckBox IsEnabled="False">
+                                            <CheckBox.Style>
+                                                <Style TargetType="CheckBox">
+                                                    <Setter Property="IsChecked" Value="False" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding OnMap}" Value="True">
+                                                            <Setter Property="IsChecked" Value="True" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </CheckBox.Style>
+                                        </CheckBox>
+                                    </StackPanel>
+                                    
+                                    <Image Source="{Binding Icon}" Width="30" Height="30" Margin="5 0 5 0"></Image>
 
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">

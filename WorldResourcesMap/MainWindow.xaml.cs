@@ -52,15 +52,13 @@ namespace WorldResourcesMap
 
             foreach (Resource resource in query)
             {
-                if (resource.X != -1 && resource.Y != -1) // Resource is on the map
+                if (resource.OnMap) // Resource is on the map
                 {
                     ResourcesOnMap.Add(resource);
                     AddIconToMap(resource);
                 }
-                else
-                {
-                    ResourcesList.Add(resource);
-                }
+
+                ResourcesList.Add(resource);
             }
         }
 
@@ -92,6 +90,7 @@ namespace WorldResourcesMap
         {
             var form = new AddResourceForm(DataManager);
             form.ShowDialog();
+            ChangedMapEvent(null, null); // @Hack: refresh current elements on map after adding new resource
         }
 
         private void ChangedMapEvent(object sender, SelectionChangedEventArgs e)
@@ -184,7 +183,7 @@ namespace WorldResourcesMap
 
                 Resource resource = e.Data.GetData("ListToCanvas") as Resource;
 
-                if (resource == null)
+                if (resource == null) // resource dragged from the map
                 {
                     resource = e.Data.GetData("CanvasToCanvas") as Resource;
 
@@ -203,12 +202,19 @@ namespace WorldResourcesMap
                 }
                 else
                 {
-                    ResourcesList.Remove(resource);
+                    if (resource.OnMap) // you can't move resource from list that is already on the map
+                    {
+                        MessageBox.Show("Ne možete postaviti resurs '" + resource.Name + "' sa oznakom " + resource.Id + " na mapu jer se on već nalazi na njoj.",
+                                "Resurs je na mapi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     ResourcesOnMap.Add(resource);
                 }
 
                 resource.X = (int)dropPosition.X;
                 resource.Y = (int)dropPosition.Y;
+                resource.OnMap = true;
 
                 DataManager.SaveResources();
 

@@ -32,7 +32,7 @@ namespace WorldResourcesMap
         private int mapId;
         private int x;
         private int y;
-
+        private bool onMap;
 
         public int Id
         {
@@ -276,10 +276,25 @@ namespace WorldResourcesMap
             }
         }
 
+        public bool OnMap
+        {
+            get
+            {
+                return onMap;
+            }
+            set
+            {
+                if (value != onMap)
+                {
+                    onMap = value;
+                    OnPropertyChanged("onMap");
+                }
+            }
+        }
+
         public Resource()
         {
-            x = -1;
-            y = -1;
+            onMap = false;
         }
 
     }
