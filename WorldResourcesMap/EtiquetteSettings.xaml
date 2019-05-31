@@ -37,7 +37,7 @@
                                  ToolTip="Pretraži etiketu po oznaci.."
                                  Text="Pretraga etikete.."
                                  Margin="5,5,5,5"
-                                 x:Name="Search" KeyUp="keyUpSearch">
+                                 x:Name="Search" KeyUp="keyUpSearch" SelectionChanged="selectionChangedSearch">
         </toolkit:AutoCompleteBox>
         <DataGrid Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Etiquettes}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" SelectionChanged="EtiquetteSelectionChanged">
             <DataGrid.Columns>

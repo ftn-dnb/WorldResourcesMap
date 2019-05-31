@@ -39,7 +39,7 @@
                                  ToolTip="Pretraži tip resursa po imenu.."
                                  Text="Pretraga tipa po imenu.."
                                  Margin="5,5,5,5"
-                                 x:Name="Search" Grid.ColumnSpan="2" KeyUp="keyUpSearch">
+                                 x:Name="Search" Grid.ColumnSpan="2" KeyUp="keyUpSearch" SelectionChanged="selectionChangedSearch">
         </toolkit:AutoCompleteBox>
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Types}" 

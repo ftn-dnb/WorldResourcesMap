@@ -37,6 +37,13 @@ namespace WorldResourcesMap
             dgrMain.ItemsSource = filtered;
         }
 
+        private void selectionChangedSearch(object sender, RoutedEventArgs e)
+        {
+            this.manager.resetTypeCounter();
+            var filtered = this.manager.MapData.Types.Where(ty => ty.Name.StartsWith(Search.Text));
+            dgrMain.ItemsSource = filtered;
+        }
+
         private ICollectionView _View;
         public ICollectionView View
         {

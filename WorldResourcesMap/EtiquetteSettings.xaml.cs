@@ -35,11 +35,18 @@ namespace WorldResourcesMap
             dgrMain.ItemsSource = filtered;
         }
 
+        private void selectionChangedSearch(object sender, RoutedEventArgs e)
+        {
+            this.manager.resetEtiquetteCounter();
+            var filtered = this.manager.MapData.Etiquettes.Where(et => et.Id.ToString().StartsWith(Search.Text));
+            dgrMain.ItemsSource = filtered;
+        }
+
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
             Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
 
-            if (MessageBox.Show("Da li ste sigurni da želite da obrišete tip resursa sa oznakom " + etiquette.Id + " ?",
+            if (MessageBox.Show("Da li ste sigurni da želite da obrišete etiketu sa oznakom " + etiquette.Id + " ?",
                 "Upozorenje o brisanju", MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.No)
             {
@@ -54,7 +61,7 @@ namespace WorldResourcesMap
         {
             Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
 
-            if (MessageBox.Show("Da li ste sigurni da želite da izmenite podatake za tip resursa sa oznakom " + etiquette.Id + " ?",
+            if (MessageBox.Show("Da li ste sigurni da želite da izmenite podatake za etiketu sa oznakom " + etiquette.Id + " ?",
                 "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.No)
             {
