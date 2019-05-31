@@ -53,7 +53,7 @@
                 
                 <StackPanel Orientation="Horizontal" Margin="20 0 0 0">
                     <TextBlock VerticalAlignment="Center" FontSize="14">Mapa:</TextBlock>
-                    <ComboBox VerticalAlignment="Center" Margin="10 0 0 0">
+                    <ComboBox Name="cbMap" SelectionChanged="ChangedMapEvent" VerticalAlignment="Center" Margin="10 0 0 0">
                         <ComboBoxItem IsSelected="True">1</ComboBoxItem>
                         <ComboBoxItem>2</ComboBoxItem>
                         <ComboBoxItem>3</ComboBoxItem>
@@ -74,12 +74,34 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <DockPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    
-                </DockPanel>
+                <ScrollViewer Grid.Row="0" Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding Path=ResourcesList}" 
+                              PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}" Width="30" Height="30" Margin="0 0 5 0"></Image>
+
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Oznaka: " FontWeight="Bold" />
+                                            <TextBlock Text="{Binding Id}"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Naziv: " FontWeight="Bold" />
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
                 
                 <ScrollViewer Grid.Row="0" Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Canvas Width="{Binding ActualWidth, ElementName=image}" Height="{Binding ActualHeight, ElementName=image}" >
+                    <Canvas Name="CanvasMap" Width="{Binding ActualWidth, ElementName=image}" Height="{Binding ActualHeight, ElementName=image}" 
+                            AllowDrop="True" DragEnter="CanvasMap_DragEnter" Drop="CanvasMap_Drop" 
+                            MouseLeftButtonDown="CanvasMap_MouseLeftButtonDown">
                         <Canvas.Background>
                             <VisualBrush  >
                                 <VisualBrush.Visual>

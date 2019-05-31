@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace WorldResourcesMap
 {
-    public class Resource: INotifyPropertyChanged
+    public class Resource : INotifyPropertyChanged
     {
-
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         protected virtual void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private int id;
         private string name;
+        private int id;
         private string description;
         private ResourceType type;
         private string frequency;
@@ -31,6 +30,8 @@ namespace WorldResourcesMap
         private DateTime discoveryDate;
         private List<Etiquette> tags;
         private int mapId;
+        private int x;
+        private int y;
 
 
         public int Id
@@ -41,28 +42,27 @@ namespace WorldResourcesMap
             }
             set
             {
-                if(value != id)
+                if (value != id)
                 {
                     id = value;
-                    OnPropertyChanged("Id");
+                    OnPropertyChanged("id");
                 }
             }
         }
+
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get { return name; }
             set
             {
-                if(value != name)
+                if (value != name)
                 {
                     name = value;
-                    OnPropertyChanged("Name");
+                    OnPropertyChanged("name");
                 }
             }
         }
+
         public string Description
         {
             get
@@ -244,10 +244,43 @@ namespace WorldResourcesMap
             }
         }// treba staviti da bude lista jer ima 4 mape
 
-        public Resource()
+        public int X
         {
+            get
+            {
+                return x;
+            }
+            set
+            {
+                if (value != x)
+                {
+                    x = value;
+                    OnPropertyChanged("x");
+                }
+            }
         }
 
+        public int Y
+        {
+            get
+            {
+                return y;
+            }
+            set
+            {
+                if (value != y)
+                {
+                    y = value;
+                    OnPropertyChanged("y");
+                }
+            }
+        }
+
+        public Resource()
+        {
+            x = -1;
+            y = -1;
+        }
 
     }
 }
