@@ -11,7 +11,8 @@
 
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button ToolTip="Upravljanje resursima (izmena i brisanje)">
+                <Button Click="OpenResourceSettings" 
+                    ToolTip="Upravljanje resursima (izmena i brisanje)">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical">
                             <Image Source="./resources/icons/img_resource.png" Width="32" Height="32"></Image>

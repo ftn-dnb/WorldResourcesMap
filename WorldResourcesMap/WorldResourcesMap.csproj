@@ -105,6 +105,9 @@
     </Compile>
     <Compile Include="MapData.cs" />
     <Compile Include="Resource.cs" />
+    <Compile Include="ResourceSettings.xaml.cs">
+      <DependentUpon>ResourceSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceType.cs" />
     <Compile Include="Etiquette.cs" />
     <Compile Include="ResourceTypeSettings.xaml.cs">
@@ -139,6 +142,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourceSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceTypeSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
