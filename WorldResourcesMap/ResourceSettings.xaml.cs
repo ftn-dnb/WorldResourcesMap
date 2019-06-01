@@ -21,6 +21,10 @@ namespace WorldResourcesMap
     public partial class ResourceSettings : Window, INotifyPropertyChanged
     {
         private DataManager manager;
+
+        private string selected_id;
+
+
         public ResourceSettings(DataManager manager)
         {
             InitializeComponent();
@@ -48,6 +52,31 @@ namespace WorldResourcesMap
             {
                 _View = value;
                 OnPropertyChanged("View");
+            }
+        }
+
+        private void ResourceSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Resource resource = dgrMain.SelectedItem as Resource;
+                this.selected_id = resource.Id.ToString();
+                txtBoxId.Text = resource.Id.ToString();
+                txtBoxName.Text = resource.Name;
+                txtBoxDescription.Text = resource.Description;
+                resFrequency.Text = resource.Frequency;
+                resUnit.Text = resource.UnitOfMeasure;
+                resMap.Text = resource.MapID.ToString();
+                resPrice.Text = resource.Price.ToString();
+                resDateFound.SelectedDate = resource.DiscoveryDate;
+                resRenewable.IsChecked = resource.Renewable;
+                resStrategicImportance.IsChecked = resource.StrategicImportance;
+                resExploatation.IsChecked = resource.Exploitation;
+                resImage.Source = new BitmapImage(new Uri(resource.Icon));
+            }
+            catch(Exception ex)
+            {
+
             }
         }
     }

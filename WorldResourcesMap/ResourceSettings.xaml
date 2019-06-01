@@ -18,7 +18,7 @@
         
         <DataGrid Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Resources}" 
                   IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
-                  >
+                  SelectionChanged="ResourceSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
@@ -30,7 +30,7 @@
         </DataGrid>
         
         
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
             <StackPanel Orientation="Vertical" Margin="20 0 20 0">
                 <TextBlock>Oznaka:</TextBlock>
                 <TextBox Name="txtBoxId"></TextBox>
