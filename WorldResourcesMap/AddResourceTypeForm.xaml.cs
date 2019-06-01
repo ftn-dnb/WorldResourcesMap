@@ -76,6 +76,13 @@ namespace WorldResourcesMap
             type.Icon = resTypeImage.Source.ToString();
 
             manager.SaveResourceType(type);
+
+            MessageBox.Show("Upravo ste dodali tip resursa sa id " + type.Id,
+                "Dodat tip resursa", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            resTypeId.Text = "";
+            resTypeDescription.Text = "";
+            resTypeName.Text = "";
         }
 
         private void CloseForm(object sender, RoutedEventArgs e)

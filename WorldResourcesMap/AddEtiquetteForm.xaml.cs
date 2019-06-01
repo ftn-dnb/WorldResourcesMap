@@ -54,12 +54,29 @@ namespace WorldResourcesMap
                 return;
             }
 
-            Etiquette etiquette = new Etiquette();
-            etiquette.Color = new SolidColorBrush(colorPicker.SelectedColor.Value);
-            etiquette.Id = int.Parse(txtBoxId.Text);
-            etiquette.Description = txtBoxDescription.Text;
 
-            manager.SaveEtiquette(etiquette);
+            Etiquette etiquette = new Etiquette();
+            try
+            {
+                etiquette.Color = new SolidColorBrush(colorPicker.SelectedColor.Value);
+                etiquette.Id = int.Parse(txtBoxId.Text);
+                etiquette.Description = txtBoxDescription.Text;
+
+                manager.SaveEtiquette(etiquette);
+            } catch (Exception ex)
+            {
+                etiquette.Color = Brushes.White;
+                etiquette.Id = int.Parse(txtBoxId.Text);
+                etiquette.Description = txtBoxDescription.Text;
+
+                manager.SaveEtiquette(etiquette);
+            }
+            MessageBox.Show("Upravo ste dodali etiketu sa id " + etiquette.Id,
+                "Dodata etiketa", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            txtBoxId.Text = "";
+            txtBoxDescription.Text = "";
+            colorPicker.Background = Brushes.White;
         }
 
         private void CloseForm(object sender, RoutedEventArgs e)

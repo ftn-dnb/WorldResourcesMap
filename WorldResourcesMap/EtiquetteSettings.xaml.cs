@@ -22,6 +22,9 @@ namespace WorldResourcesMap
     {
         private DataManager manager;
 
+        private string selected_id;
+        private bool valid;
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string info)
         {
@@ -33,6 +36,32 @@ namespace WorldResourcesMap
             this.manager.resetEtiquetteCounter();
             var filtered = this.manager.MapData.Etiquettes.Where(et => et.Id.ToString().StartsWith(Search.Text));
             dgrMain.ItemsSource = filtered;
+        }
+
+        private void keyUpChangeId(object sender, RoutedEventArgs e)
+        {
+            var filtered = this.manager.MapData.Etiquettes.Where(et => string.Compare(et.Id.ToString(), idTextBox.Text) == 0);
+            if (filtered.ToList().Count != 0)
+            {
+                if (string.Compare(filtered.ToList().First().Id.ToString(), this.selected_id) != 0)
+                {
+                    idTextBox.Background = Brushes.Salmon;
+                    idTextBoxError.Text = "Oznaka mora biti jedinstvena.";
+                    this.valid = false;
+                }
+                else
+                {
+                    idTextBox.Background = Brushes.White;
+                    idTextBoxError.Text = "";
+                    this.valid = true;
+                }
+            }
+            else
+            {
+                idTextBox.Background = Brushes.White;
+                idTextBoxError.Text = "";
+                this.valid = true;
+            }
         }
 
         private void selectionChangedSearch(object sender, RoutedEventArgs e)
@@ -60,18 +89,31 @@ namespace WorldResourcesMap
         private void ChangeItem(object sender, RoutedEventArgs e)
         {
             Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
-
+            if (!this.valid)
+            {
+                MessageBox.Show("Nije moguće izmeniti etiketu " + etiquette.Id,
+                "Upozorenje o izmeni podataka", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+                return;
+            }
             if (MessageBox.Show("Da li ste sigurni da želite da izmenite podatake za etiketu sa oznakom " + etiquette.Id + " ?",
                 "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }
-
-            etiquette.Id = int.Parse(idTextBox.Text);
-            etiquette.Color = new SolidColorBrush(colorPicker.SelectedColor.Value);
-            etiquette.Description = descTextBox.Text;
-            this.manager.SaveEtiquettes();
+            try
+            {
+                etiquette.Id = int.Parse(idTextBox.Text);
+                etiquette.Color = new SolidColorBrush(colorPicker.SelectedColor.Value);
+                etiquette.Description = descTextBox.Text;
+                this.manager.SaveEtiquettes();
+            }
+            catch (Exception ex) {
+                etiquette.Id = int.Parse(idTextBox.Text);
+                etiquette.Description = descTextBox.Text;
+                this.manager.SaveEtiquettes();
+            }
         }
 
         private void EtiquetteSelectionChanged(object sender, RoutedEventArgs e)
@@ -79,7 +121,7 @@ namespace WorldResourcesMap
             try
             {
                 Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
-
+                this.selected_id = etiquette.Id.ToString();
                 idTextBox.Text = etiquette.Id.ToString();
                 colorPicker.Background = etiquette.Color;
                 descTextBox.Text = etiquette.Description;
@@ -109,6 +151,7 @@ namespace WorldResourcesMap
             this.manager = manager;
             this.DataContext = this.manager;
             View = CollectionViewSource.GetDefaultView(this.manager.MapData.Etiquettes);
+            this.valid = true;
         }
     }
 }

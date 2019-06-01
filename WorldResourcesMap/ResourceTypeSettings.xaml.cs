@@ -22,6 +22,8 @@ namespace WorldResourcesMap
     public partial class ResourceTypeSettings : Window, INotifyPropertyChanged
     {
         private DataManager manager;
+        private bool valid;
+        private string selected_id;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,6 +46,32 @@ namespace WorldResourcesMap
             dgrMain.ItemsSource = filtered;
         }
 
+        private void keyUpChangeId(object sender, RoutedEventArgs e)
+        {
+            var filtered = this.manager.MapData.Types.Where(et => string.Compare(et.Id.ToString(), txtBoxId.Text) == 0);
+            if (filtered.ToList().Count != 0)
+            {
+                if (string.Compare(filtered.ToList().First().Id.ToString(), this.selected_id) != 0)
+                {
+                    txtBoxId.Background = Brushes.Salmon;
+                    idTextBoxError.Text = "Oznaka mora biti jedinstvena.";
+                    this.valid = false;
+                }
+                else
+                {
+                    txtBoxId.Background = Brushes.White;
+                    idTextBoxError.Text = "";
+                    this.valid = true;
+                }
+            }
+            else
+            {
+                txtBoxId.Background = Brushes.White;
+                idTextBoxError.Text = "";
+                this.valid = true;
+            }
+        }
+
         private ICollectionView _View;
         public ICollectionView View
         {
@@ -62,6 +90,7 @@ namespace WorldResourcesMap
         {
             this.manager = manager;
             this.DataContext = this.manager;
+            this.valid = true;
 
             InitializeComponent();
 
@@ -91,7 +120,13 @@ namespace WorldResourcesMap
         private void EditItem(object sender, RoutedEventArgs e)
         {
             ResourceType item = dgrMain.SelectedItem as ResourceType;
-
+            if (!this.valid)
+            {
+                MessageBox.Show("Nije moguće izmeniti tip resursa " + item.Id,
+                "Upozorenje o izmeni podataka", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+                return;
+            }
             if (MessageBox.Show("Da li ste sigurni da želite da izmenite podatake za tip resursa sa oznakom " + item.Id + " ?",
                 "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.No)
@@ -110,7 +145,7 @@ namespace WorldResourcesMap
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
             ResourceType item = dgrMain.SelectedItem as ResourceType;
-
+            
             if (MessageBox.Show("Da li ste sigurni da želite da obrišete tip resursa sa oznakom " + item.Id + " ?", 
                 "Upozorenje o brisanju", MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.No)
@@ -153,6 +188,7 @@ namespace WorldResourcesMap
 
             try
             {
+                this.selected_id = item.Id.ToString();
                 txtBoxId.Text = item.Id.ToString();
                 txtBoxName.Text = item.Name;
                 txtBoxDescription.Text = item.Description;
