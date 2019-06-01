@@ -22,7 +22,10 @@
                 </Button>
 
                 <Button Click="OpenAddResource" ToolTip="Dodavanje novog resursa">
-                    Dodaj resurs
+                    <StackPanel>
+                        <Image Source="./resources/icons/img_resource_add.png" Width="32" Height="32"></Image>
+                        <TextBlock VerticalAlignment="Center" FontSize="14">Dodaj resurs</TextBlock>
+                    </StackPanel>
                 </Button>
 
                 <Separator></Separator>
@@ -35,7 +38,10 @@
                 </Button>
                 
                 <Button Click="OpenAddResourceType" ToolTip="Dodavanje novog tipa resursa">
-                    Dodaj tip
+                    <StackPanel>
+                        <Image Source="./resources/icons/img_type_add.png" Width="32" Height="32"></Image>
+                        <TextBlock VerticalAlignment="Center" FontSize="14">Dodaj tip</TextBlock>
+                    </StackPanel>
                 </Button>
 
                 <Separator></Separator>
@@ -48,7 +54,10 @@
                 </Button>
                 
                 <Button Click="OpenAddEtiquette" ToolTip="Dodavanje nove etikete">
-                    Dodaj etiketu
+                    <StackPanel>
+                        <Image Source="./resources/icons/img_etiquette_add.png" Width="32" Height="32"></Image>
+                        <TextBlock VerticalAlignment="Center" FontSize="14">Dodaj etiketu</TextBlock>
+                    </StackPanel>
                 </Button>
 
                 <Separator></Separator>

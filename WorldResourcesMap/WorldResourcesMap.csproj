@@ -202,5 +202,12 @@
   <ItemGroup>
     <Resource Include="resources\images\no-image.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\icons\img_etiquette_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\icons\img_resource_add.png" />
+    <Resource Include="resources\icons\img_type_add.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
