@@ -75,6 +75,7 @@ namespace WorldResourcesMap
             ReadEtiquette();
             ReadResourcesTypes();
             ReadResources();
+            Console.WriteLine("Bicu student ftn-a 2032");
         }
 
         
@@ -163,6 +164,38 @@ namespace WorldResourcesMap
                     if(!data.Equals(""))
                         resourceList = JsonConvert.DeserializeObject<ObservableCollection<Resource>>(data);
                     //ubaci za null
+                }
+
+                // ja bih koristio mape ovde
+                foreach(Resource r in resourceList)
+                {
+                    List<Etiquette> listaE = new List<Etiquette>();
+                    foreach(ResourceType rt in MapData.Types)
+                    {
+                        if(rt.Id == r.Type.Id)
+                        {
+                            r.Type = rt;
+                            break;
+                        }
+                    }
+
+                    if (r.Tags != null)
+                    {
+                        foreach (Etiquette tag in r.Tags)
+                        {
+
+                            foreach (Etiquette ee in MapData.Etiquettes)
+                            {
+                                if (ee.Id == tag.Id)
+                                {
+                                    listaE.Add(ee);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    r.Tags = listaE;
+       
                 }
 
                 MapData.Resources = resourceList;
