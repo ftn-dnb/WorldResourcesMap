@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WorldResourcesMap"
+        xmlns:val="clr-namespace:WorldResourcesMap.Validation"
         mc:Ignorable="d"
-        Title="Dodavanje etikete" Height="330" Width="400" MinHeight="300" MinWidth="360">
+        Title="Dodavanje etikete" Height="330" Width="400" MinHeight="330" MinWidth="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -14,23 +15,49 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="10,10,10,10" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <TextBlock Margin="0 5 0 0">Oznaka etikete (ID):</TextBlock>
-            <TextBox Name="txtBoxId" Margin="0 5 0 0"  KeyUp="idTextChanged"></TextBox>
+            <TextBox Name="txtBoxId" Margin="0 5 0 0" ToolTip="Polje za unos oznake etikete" KeyUp="idTextChanged"></TextBox>
             <TextBlock Name="txtBoxIdError" Foreground="Red"></TextBlock>
 
             <TextBlock Margin="0 5 0 0">Boja:</TextBlock>
-            <xctk:ColorPicker Name="colorPicker">
+            <xctk:ColorPicker Name="colorPicker" ToolTip="Odabir boje etikete">
             </xctk:ColorPicker>
 
             <TextBlock Margin="0 5 0 0">Opis:</TextBlock>
             <TextBox Name="txtBoxDescription" Margin="0 5 0 0" TextWrapping="Wrap" AcceptsReturn="True" 
-                 VerticalScrollBarVisibility="Visible" MaxHeight="80" Height="80"></TextBox>
+                 VerticalScrollBarVisibility="Visible" MaxHeight="80" Height="80" ToolTip="Polje za unos opisa etikete">
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Margin="10 10 10 5" Click="AddEtiquette">Dodaj</Button>
-                <Button Margin="10 10 10 5" Click="CloseForm">Odustani</Button>
+                <TextBox.Text>
+                    <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <StackPanel Margin="0 15 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Margin="10 10 10 5" Click="AddEtiquette" ToolTip="Dodavanje nove etikete">Dodaj</Button>
+                <Button Margin="10 10 10 5" Click="CloseForm" ToolTip="Odustajanje od dodavanja nove etikete">Odustani</Button>
             </StackPanel>
         </StackPanel>
-        <DataGrid Margin="5,5,5,5" Grid.Column="1" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Etiquettes}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True">
+        <DataGrid Margin="5,5,5,5" Grid.Column="1" x:Name="dgrMain" ItemsSource="{Binding Path=Manager.MapData.Etiquettes}"
+                  IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" ToolTip="Prikaz pronadjenih etiketa tokom unosa oznake">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Boja" Width="*">

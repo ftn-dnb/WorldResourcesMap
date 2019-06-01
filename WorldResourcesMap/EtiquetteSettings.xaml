@@ -6,8 +6,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WorldResourcesMap"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:val="clr-namespace:WorldResourcesMap.Validation"
         mc:Ignorable="d"
-        Title="Upravljanje postojećim etiketama" Height="400" Width="350" MinHeight="300" MinWidth="300" MaxHeight="450" MaxWidth="400" Name="winTable">
+        Title="Upravljanje postojećim etiketama" Height="620" Width="350" MinHeight="620" MinWidth="350" Name="winTable">
     <Window.Resources>
         <DataTemplate x:Key="CustomTemplate">
             <StackPanel Orientation="Horizontal">
@@ -28,7 +29,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <toolkit:AutoCompleteBox ItemsSource="{Binding MapData.Etiquettes}"
+        <toolkit:AutoCompleteBox ItemsSource="{Binding Manager.MapData.Etiquettes}"
                                  ValueMemberPath="Id"
                                  ItemTemplate="{StaticResource CustomTemplate}"
                                  ItemFilter="{Binding EtiquetteFilter}"
@@ -39,7 +40,9 @@
                                  Margin="5,5,5,5"
                                  x:Name="Search" KeyUp="keyUpSearch" SelectionChanged="selectionChangedSearch">
         </toolkit:AutoCompleteBox>
-        <DataGrid Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Etiquettes}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" SelectionChanged="EtiquetteSelectionChanged">
+        <DataGrid Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=Manager.MapData.Etiquettes}"
+                  IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" 
+                  SelectionChanged="EtiquetteSelectionChanged" ToolTip="Prikaz svih etiketa">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Boja" Width="*">
@@ -54,15 +57,44 @@
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="2" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}" Margin="10,10,10,10">
             <TextBlock>Oznaka:</TextBlock>
-            <TextBox Name="idTextBox" KeyUp="keyUpChangeId"></TextBox>
+            <TextBox Name="idTextBox" KeyUp="keyUpChangeId" ToolTip="Polje za unos oznake etikete"></TextBox>
             <TextBlock Name="idTextBoxError" Foreground="Red"></TextBlock>
-            <TextBlock >Boja:</TextBlock>
-            <xctk:ColorPicker Name="colorPicker"></xctk:ColorPicker>
+            
+            <TextBlock>Boja:</TextBlock>
+            <xctk:ColorPicker Name="colorPicker" ToolTip="Odabir boje etikete"></xctk:ColorPicker>
+            
             <TextBlock>Opis:</TextBlock>
-            <TextBox Name="descTextBox"></TextBox>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="5,5,5,5" Click="ChangeItem">Izmeni</Button>
-                <Button Margin="5,5,5,5" Click="DeleteItem">Obriši</Button>
+            <TextBox Name="descTextBox" ToolTip="Polje za unos opisa etikete" TextWrapping="Wrap" AcceptsReturn="True" 
+                 VerticalScrollBarVisibility="Visible" MaxHeight="70" Height="70">
+
+                <TextBox.Text>
+                    <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            
+            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Margin="5,5,5,5" Click="ChangeItem" ToolTip="Potvrdjivanje izmene etikete">Izmeni</Button>
+                <Button Margin="5,5,5,5" Click="DeleteItem" ToolTip="Brisanje odabrane etikete">Obriši</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

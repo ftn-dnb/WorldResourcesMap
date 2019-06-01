@@ -134,6 +134,14 @@ namespace WorldResourcesMap
                 return;
             }
 
+            int id = 0;
+            if (!int.TryParse(resTypeId.Text, out id))
+            {
+                MessageBox.Show("Oznaka tipa resursa mora biti ceo broj.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
             var query = this.manager.MapData.Types.Where(i => i.Id == int.Parse(resTypeId.Text));
 
             if (query.ToList().Count != 0)

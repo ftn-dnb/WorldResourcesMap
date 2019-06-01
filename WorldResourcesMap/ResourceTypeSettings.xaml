@@ -126,7 +126,7 @@
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button Name="btnEditType" Margin="5,15,5,5" Click="EditItem" ToolTip="Potvrdjivanje izmene tipa resursa">Izmeni</Button>
-            <Button Name="btnRemoveType" Margin="5,15,5,5" Click="DeleteItem" ToolTip="Brisanje selektovanog tipa resursa">Obriši</Button>
+            <Button Name="btnRemoveType" Margin="5,15,5,5" Click="DeleteItem" ToolTip="Brisanje odabranog tipa resursa">Obriši</Button>
         </StackPanel>
     </Grid>
 </Window>

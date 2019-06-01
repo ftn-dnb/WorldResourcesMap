@@ -21,6 +21,38 @@ namespace WorldResourcesMap
     public partial class EtiquetteSettings : Window, INotifyPropertyChanged
     {
         private DataManager manager;
+        public DataManager Manager
+        {
+            get
+            {
+                return manager;
+            }
+            set
+            {
+                if (value != manager)
+                {
+                    manager = value;
+                    OnPropertyChanged("Manager");
+                }
+            }
+        }
+
+        private string _test1;
+        public string Test1
+        {
+            get
+            {
+                return _test1;
+            }
+            set
+            {
+                if (value != _test1)
+                {
+                    _test1 = value;
+                    OnPropertyChanged("Test1");
+                }
+            }
+        }
 
         private string selected_id;
         private bool valid;
@@ -29,6 +61,15 @@ namespace WorldResourcesMap
         protected void OnPropertyChanged(string info)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+        }
+
+        public EtiquetteSettings(DataManager manager)
+        {
+            InitializeComponent();
+            this.manager = manager;
+            this.DataContext = this;
+            View = CollectionViewSource.GetDefaultView(this.manager.MapData.Etiquettes);
+            this.valid = true;
         }
 
         private void keyUpSearch(object sender, RoutedEventArgs e)
@@ -40,6 +81,13 @@ namespace WorldResourcesMap
 
         private void keyUpChangeId(object sender, RoutedEventArgs e)
         {
+            int id = 0;
+            if (!int.TryParse(idTextBox.Text, out id))
+            {
+                idTextBoxError.Text = "Oznaka mora biti ceo broj.";
+                return;
+            }
+
             var filtered = this.manager.MapData.Etiquettes.Where(et => string.Compare(et.Id.ToString(), idTextBox.Text) == 0);
             if (filtered.ToList().Count != 0)
             {
@@ -88,20 +136,50 @@ namespace WorldResourcesMap
 
         private void ChangeItem(object sender, RoutedEventArgs e)
         {
+            if (idTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za oznaku etikete.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            if (colorPicker.SelectedColor == null)
+            {
+                MessageBox.Show("Morate odabrati boju etikete.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            if (descTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za opis etikete.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            int id = 0;
+            if (!int.TryParse(idTextBox.Text, out id))
+            {
+                MessageBox.Show("Oznaka etikete mora biti ceo broj.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
             Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
             if (!this.valid)
             {
                 MessageBox.Show("Nije moguće izmeniti etiketu " + etiquette.Id,
-                "Upozorenje o izmeni podataka", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+                    "Upozorenje o izmeni podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
             if (MessageBox.Show("Da li ste sigurni da želite da izmenite podatake za etiketu sa oznakom " + etiquette.Id + " ?",
-                "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) == MessageBoxResult.No)
+                    "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }
+
             try
             {
                 etiquette.Id = int.Parse(idTextBox.Text);
@@ -145,13 +223,6 @@ namespace WorldResourcesMap
             }
         }
 
-        public EtiquetteSettings(DataManager manager)
-        {
-            InitializeComponent();
-            this.manager = manager;
-            this.DataContext = this.manager;
-            View = CollectionViewSource.GetDefaultView(this.manager.MapData.Etiquettes);
-            this.valid = true;
-        }
+        
     }
 }
