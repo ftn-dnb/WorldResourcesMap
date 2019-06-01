@@ -4,22 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldResourcesMap"
+        xmlns:val="clr-namespace:WorldResourcesMap.Validation"
         mc:Ignorable="d"
         Title="Dodavanje tipa resursa" Height="350" Width="570" MinHeight="320" MinWidth="400">
     
     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Stretch">
         <StackPanel Margin="10,10,10,10" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0 0 10 0" Width="156">
+            <StackPanel Orientation="Vertical" Margin="0 0 10 0">
+               
                 <TextBlock Margin="0 5 0 0">Oznaka tipa resursa (ID):</TextBlock>
-                <TextBox Name="resTypeId" Margin="0 5 0 0" MaxWidth="130" KeyUp="idTextChanged"></TextBox>
-                <TextBlock Name="txtBoxIdError" Foreground="Red"></TextBlock>
+                <TextBox Name="resTypeId" MaxWidth="130" KeyUp="idTextChanged">
+                </TextBox>
+                
+                <TextBlock Margin="0 3 0 0" Name="txtBoxIdError" Foreground="Red"></TextBlock>
+                
                 <TextBlock Margin="0 5 0 0">Naziv:</TextBlock>
-                <TextBox Name="resTypeName" Margin="0 5 0 0" MaxWidth="130"></TextBox>
+                <TextBox Name="resTypeName" MaxWidth="130">
+                    <TextBox.Text>
+                        <Binding Path="Test2" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NotEmptyValidationRule ValidationStep="RawProposedValue" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                <TextBlock Margin="0 5 0 0">Opis:</TextBlock>
-                <TextBox Name="resTypeDescription" Margin="0 5 0 0" TextWrapping="Wrap" 
-                         AcceptsReturn="True" VerticalScrollBarVisibility="Visible" MaxWidth="130" MaxHeight="80" Height="80"></TextBox>
+                                <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox2"/>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+                <TextBlock Margin="0 20 0 0">Opis:</TextBlock>
+                <TextBox Name="resTypeDescription" TextWrapping="Wrap" 
+                         AcceptsReturn="True" VerticalScrollBarVisibility="Visible" MaxWidth="130" MaxHeight="80" Height="80">
+
+                    <TextBox.Text>
+                        <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <val:NotEmptyValidationRule ValidationStep="RawProposedValue" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox3"/>
+                                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
             </StackPanel>
+            
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,5">
                 <DataGrid Margin="5,5,5,5" Grid.Column="1" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Types}" IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" Width="159">
                     <DataGrid.Columns>

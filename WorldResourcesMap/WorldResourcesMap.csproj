@@ -117,6 +117,8 @@
       <DependentUpon>ResourceTypeSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation\EtiquetteValidationRule.cs" />
+    <Compile Include="Validation\NotEmptyValidationRule.cs" />
+    <Compile Include="Validation\IdAsNumberValidationRule.cs" />
     <Page Include="AddEtiquetteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
