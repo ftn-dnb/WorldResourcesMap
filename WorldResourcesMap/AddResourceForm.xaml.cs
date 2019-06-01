@@ -60,8 +60,16 @@ namespace WorldResourcesMap
             resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
             resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString()); 
             resource.Price = int.Parse(resPrice.Text);
-            resource.Icon = resImage.Source.ToString();
-
+            if(resImage.Source.ToString().Contains("no-image.png"))
+            {
+                resource.Icon = resource.Type.Icon;
+            }
+            else
+            {
+                resource.Icon = resImage.Source.ToString();
+            }
+            
+            
             resource.Renewable = (bool)resRenewable.IsChecked;
             resource.StrategicImportance = (bool)resStrategicImportance.IsChecked;
             resource.Exploitation = (bool)resExploatation.IsChecked;
