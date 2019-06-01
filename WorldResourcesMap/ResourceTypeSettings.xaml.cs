@@ -21,11 +21,73 @@ namespace WorldResourcesMap
     /// </summary>
     public partial class ResourceTypeSettings : Window, INotifyPropertyChanged
     {
-        private DataManager manager;
         private bool valid;
         private string selected_id;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private DataManager manager;
+        public DataManager Manager
+        {
+            get
+            {
+                return manager;
+            }
+            set
+            {
+                if (value != manager)
+                {
+                    manager = value;
+                    OnPropertyChanged("Manager");
+                }
+            }
+        }
+
+        private string _test1;
+        public string Test1
+        {
+            get
+            {
+                return _test1;
+            }
+            set
+            {
+                if (value != _test1)
+                {
+                    _test1 = value;
+                    OnPropertyChanged("Test1");
+                }
+            }
+        }
+
+        private string _test2;
+        public string Test2
+        {
+            get
+            {
+                return _test2;
+            }
+            set
+            {
+                if (value != _test2)
+                {
+                    _test2 = value;
+                    OnPropertyChanged("Test2");
+                }
+            }
+        }
+
+        public ResourceTypeSettings(DataManager manager)
+        {
+            this.manager = manager;
+            this.DataContext = this;
+            this.valid = true;
+
+            InitializeComponent();
+
+            EnableEditForm(false);
+            View = CollectionViewSource.GetDefaultView(this.manager.MapData.Types);
+        }
 
         protected void OnPropertyChanged(string info)
         {
@@ -48,12 +110,20 @@ namespace WorldResourcesMap
 
         private void keyUpChangeId(object sender, RoutedEventArgs e)
         {
+            int id = 0;
+            if (!int.TryParse(txtBoxId.Text, out id))
+            {
+                idTextBoxError.Text = "Oznaka mora biti ceo broj.";
+                this.valid = false;
+                return;
+            }
+
             var filtered = this.manager.MapData.Types.Where(et => string.Compare(et.Id.ToString(), txtBoxId.Text) == 0);
             if (filtered.ToList().Count != 0)
             {
                 if (string.Compare(filtered.ToList().First().Id.ToString(), this.selected_id) != 0)
                 {
-                    txtBoxId.Background = Brushes.Salmon;
+                    //txtBoxId.Background = Brushes.Salmon;
                     idTextBoxError.Text = "Oznaka mora biti jedinstvena.";
                     this.valid = false;
                 }
@@ -86,23 +156,6 @@ namespace WorldResourcesMap
             }
         }
 
-        public ResourceTypeSettings(DataManager manager)
-        {
-            this.manager = manager;
-            this.DataContext = this.manager;
-            this.valid = true;
-
-            InitializeComponent();
-
-
-            //this.manager.MapData.Types.Add(new ResourceType(1, "aa", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis1"));
-            //this.manager.MapData.Types.Add(new ResourceType(2, "bb", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis2"));
-            //this.manager.MapData.Types.Add(new ResourceType(3, "cc", @"E:\dev\WorldResourcesMap\WorldResourcesMap\resources\images\no-image.png", "opis3"));
-
-            EnableEditForm(false);
-            View = CollectionViewSource.GetDefaultView(this.manager.MapData.Types);
-        }
-
         private void EnableEditForm(bool state)
         {
             if (txtBoxId == null) // Komponenta jos nije inicijalizovana
@@ -119,17 +172,41 @@ namespace WorldResourcesMap
 
         private void EditItem(object sender, RoutedEventArgs e)
         {
+            if (txtBoxId.Text.Length == 0)
+            {
+                MessageBox.Show("Morate uneti oznaku tipa resursa",
+                    "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            if (txtBoxName.Text.Length == 0)
+            {
+                MessageBox.Show("Morate uneti naziv tipa resursa",
+                    "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            if (txtBoxDescription.Text.Length == 0)
+            {
+                MessageBox.Show("Morate uneti opis tipa resursa",
+                    "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
             ResourceType item = dgrMain.SelectedItem as ResourceType;
             if (!this.valid)
             {
                 MessageBox.Show("Nije moguće izmeniti tip resursa " + item.Id,
-                "Upozorenje o izmeni podataka", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+                    "Upozorenje o izmeni podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
             if (MessageBox.Show("Da li ste sigurni da želite da izmenite podatake za tip resursa sa oznakom " + item.Id + " ?",
-                "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) == MessageBoxResult.No)
+                    "Upozorenje o izmeni podataka", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }
@@ -147,8 +224,8 @@ namespace WorldResourcesMap
             ResourceType item = dgrMain.SelectedItem as ResourceType;
             
             if (MessageBox.Show("Da li ste sigurni da želite da obrišete tip resursa sa oznakom " + item.Id + " ?", 
-                "Upozorenje o brisanju", MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) == MessageBoxResult.No)
+                    "Upozorenje o brisanju", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                 return;
             }

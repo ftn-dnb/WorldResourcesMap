@@ -62,22 +62,6 @@ namespace WorldResourcesMap
             }
         }
 
-        private int _test3;
-        public int Test3
-        {
-            get
-            {
-                return _test3;
-            }
-            set
-            {
-                if (value != _test3)
-                {
-                    _test3 = value;
-                    OnPropertyChanged("Test3");
-                }
-            }
-        }
 
         private DataManager manager;
  
@@ -129,28 +113,28 @@ namespace WorldResourcesMap
 
         private void AddResourceType(object sender, RoutedEventArgs e)
         {
-            var query = this.manager.MapData.Types.Where(i => i.Id == int.Parse(resTypeId.Text));
-
             if (resTypeId.Text.Length == 0)
             {
-                MessageBox.Show("Morate popuniti polje za oznaku tipa resursa.", "Nedovršena forma", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show("Morate popuniti polje za oznaku tipa resursa.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
             if (resTypeName.Text.Length == 0)
             {
-                MessageBox.Show("Morate popuniti polje za naziv tipa resursa.", "Nedovršena forma", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show("Morate popuniti polje za naziv tipa resursa.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
             if (resTypeDescription.Text.Length == 0)
             {
-                MessageBox.Show("Morate popuniti polje za opis tipa resursa.", "Nedovršena forma", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show("Morate popuniti polje za opis tipa resursa.", "Nedovršen unos podataka", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
+
+            var query = this.manager.MapData.Types.Where(i => i.Id == int.Parse(resTypeId.Text));
 
             if (query.ToList().Count != 0)
             {
@@ -158,7 +142,7 @@ namespace WorldResourcesMap
                     MessageBoxImage.Warning);
                 return;
             }
-            
+
             ResourceType type = new ResourceType();
             type.Id = int.Parse(resTypeId.Text);
             type.Name = resTypeName.Text;
@@ -170,6 +154,7 @@ namespace WorldResourcesMap
             MessageBox.Show("Upravo ste dodali tip resursa sa id " + type.Id,
                 "Dodat tip resursa", MessageBoxButton.OK,
                 MessageBoxImage.Information);
+
             resTypeId.Text = "";
             resTypeDescription.Text = "";
             resTypeName.Text = "";
@@ -177,6 +162,13 @@ namespace WorldResourcesMap
 
         private void CloseForm(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Da li ste sigurni da želite da odustanete ? Napravljene promene neće biti sačuvane",
+                    "Odustajanje od dodavanja", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+                return;
+            }
+
             // @TODO: find a better way to close dialog
             this.Visibility = Visibility.Hidden;
         }

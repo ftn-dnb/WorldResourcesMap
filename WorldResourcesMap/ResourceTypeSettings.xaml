@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldResourcesMap"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:val="clr-namespace:WorldResourcesMap.Validation"
         mc:Ignorable="d"
         Title="Upravljanje postojećim tipovima resursa" Height="500" Width="400" MinHeight="500" MinWidth="400">
     <Window.Resources>
@@ -23,6 +24,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="6*"/>
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
@@ -30,7 +32,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <toolkit:AutoCompleteBox ItemsSource="{Binding MapData.Types}"
+        <toolkit:AutoCompleteBox ItemsSource="{Binding Manager.MapData.Types}"
                                  ValueMemberPath="Name"
                                  ItemTemplate="{StaticResource CustomTemplate}"
                                  ItemFilter="{Binding TypeFilter}"
@@ -42,9 +44,9 @@
                                  x:Name="Search" Grid.ColumnSpan="2" KeyUp="keyUpSearch" SelectionChanged="selectionChangedSearch">
         </toolkit:AutoCompleteBox>
 
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Types}" 
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=Manager.MapData.Types}" 
                   IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
-                  SelectionChanged="DataGridSelectionChanged">
+                  SelectionChanged="DataGridSelectionChanged" ToolTip="Prikaz svih tipova resursa">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
@@ -54,29 +56,77 @@
 
         <StackPanel Grid.Column="0" Grid.Row="2" Margin="5,5,5,5">
             <TextBlock>Oznaka:</TextBlock>
-            <TextBox Name="txtBoxId" KeyUp="keyUpChangeId"></TextBox>
+            <TextBox Name="txtBoxId" KeyUp="keyUpChangeId" ToolTip="Polje za unos oznake tipa resursa"></TextBox>
             <TextBlock Name="idTextBoxError" Foreground="Red"></TextBlock>
 
-            <TextBlock >Naziv:</TextBlock>
-            <TextBox Name="txtBoxName"></TextBox>
+            <TextBlock>Naziv:</TextBlock>
+            <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva tipa resursa">
+                <TextBox.Text>
+                    <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-            <TextBlock>Opis:</TextBlock>
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox1"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <TextBlock Margin="0 20 0 0">Opis:</TextBlock>
             <TextBox Name="txtBoxDescription" TextWrapping="Wrap" Height="80" MaxHeight="80"
-                    AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
+                    AcceptsReturn="True" VerticalScrollBarVisibility="Visible" ToolTip="Polje za unos opisa tipa resursa">
+
+                <TextBox.Text>
+                    <Binding Path="Test2" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NotEmptyValidationRule ValidationStep="RawProposedValue" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox2"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
-            <Image Name="resTypeImage" Margin="0 10 0 0" Width="150" Height="150" />
+            <Image Name="resTypeImage" Margin="0 10 0 0" Width="150" Height="150" ToolTip="Slika tipa resursa" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Name="btnChangeImage" Click="AddImage" Width="70" Margin="5">Izmeni sliku</Button>
-                <Button Name="btnRemoveImage" Click="RemoveImage" Width="70" Margin="5">Obriši sliku</Button>
-            </StackPanel>
-                
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Name="btnEditType" Margin="5,15,5,5" Click="EditItem">Izmeni</Button>
-                <Button Name="btnRemoveType" Margin="5,15,5,5" Click="DeleteItem">Obriši</Button>
+                <Button Name="btnChangeImage" Click="AddImage" Width="70" Margin="5" ToolTip="Odabir nove slike">Izmeni sliku</Button>
+                <Button Name="btnRemoveImage" Click="RemoveImage" Width="70" Margin="5" ToolTip="Brisanje postojeće slike">Obriši sliku</Button>
             </StackPanel>
         </StackPanel>
 
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Name="btnEditType" Margin="5,15,5,5" Click="EditItem" ToolTip="Potvrdjivanje izmene tipa resursa">Izmeni</Button>
+            <Button Name="btnRemoveType" Margin="5,15,5,5" Click="DeleteItem" ToolTip="Brisanje selektovanog tipa resursa">Obriši</Button>
+        </StackPanel>
     </Grid>
 </Window>
