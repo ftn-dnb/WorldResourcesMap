@@ -54,7 +54,7 @@ namespace WorldResourcesMap
             }
 
             this.manager.MapData.Etiquettes.Remove(etiquette);
-            //TODO: potrebno je sacuvati izmjenu u JSON fajl ( nova metoda )
+            this.manager.SaveEtiquettes();
         }
 
         private void ChangeItem(object sender, RoutedEventArgs e)
@@ -71,6 +71,7 @@ namespace WorldResourcesMap
             etiquette.Id = int.Parse(idTextBox.Text);
             etiquette.Color = new SolidColorBrush(colorPicker.SelectedColor.Value);
             etiquette.Description = descTextBox.Text;
+            this.manager.SaveEtiquettes();
         }
 
         private void EtiquetteSelectionChanged(object sender, RoutedEventArgs e)

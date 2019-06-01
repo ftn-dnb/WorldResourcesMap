@@ -27,6 +27,23 @@ namespace WorldResourcesMap
             this.manager = manager;
         }
 
+        private void idTextChanged(object sender, RoutedEventArgs e)
+        {
+            this.manager.resetEtiquetteCounter();
+            var filtered = this.manager.MapData.Etiquettes.Where(et => et.Id.ToString().StartsWith(txtBoxId.Text));
+            if (txtBoxId.Text == "") { filtered.ToList().Clear(); }
+            if (filtered.ToList().Count != 0)
+            {
+                txtBoxId.Background = Brushes.Salmon;
+                txtBoxIdError.Text = "Oznaka mora biti jedinstvena.";
+            } else
+            {
+                txtBoxId.Background = Brushes.White;
+                txtBoxIdError.Text = "";
+            }
+            dgrMain.ItemsSource = filtered;
+        }
+
         private void AddEtiquette(object sender, RoutedEventArgs e)
         {
             var query = this.manager.MapData.Etiquettes.Where(i => i.Id == int.Parse(txtBoxId.Text));

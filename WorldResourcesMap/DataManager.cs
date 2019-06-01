@@ -144,7 +144,7 @@ namespace WorldResourcesMap
         {
 
             string dataString = JsonConvert.SerializeObject(MapData.Types);
-            using (StreamWriter writer = new StreamWriter(resourcePath))
+            using (StreamWriter writer = new StreamWriter(resourceTypePath))
             {
                 writer.Write(dataString);
             }

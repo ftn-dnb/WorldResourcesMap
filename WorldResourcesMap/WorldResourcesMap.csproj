@@ -110,6 +110,7 @@
     <Compile Include="ResourceTypeSettings.xaml.cs">
       <DependentUpon>ResourceTypeSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validation\EtiquetteValidationRule.cs" />
     <Page Include="AddEtiquetteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

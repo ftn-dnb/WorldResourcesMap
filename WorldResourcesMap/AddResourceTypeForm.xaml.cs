@@ -28,6 +28,24 @@ namespace WorldResourcesMap
             this.manager = manager;
         }
 
+        private void idTextChanged(object sender, RoutedEventArgs e)
+        {
+            this.manager.resetTypeCounter();
+            var filtered = this.manager.MapData.Types.Where(et => et.Id.ToString().StartsWith(resTypeId.Text));
+            if (resTypeId.Text == "") { filtered.ToList().Clear(); }
+            if (filtered.ToList().Count != 0)
+            {
+                resTypeId.Background = Brushes.Salmon;
+                txtBoxIdError.Text = "Oznaka mora biti jedinstvena.";
+            }
+            else
+            {
+                resTypeId.Background = Brushes.White;
+                txtBoxIdError.Text = "";
+            }
+            dgrMain.ItemsSource = filtered;
+        }
+
         private void AddImage(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -44,11 +62,19 @@ namespace WorldResourcesMap
 
         private void AddResourceType(object sender, RoutedEventArgs e)
         {
+            var query = this.manager.MapData.Types.Where(i => i.Id == int.Parse(resTypeId.Text));
+            if (query.ToList().Count != 0)
+            {
+                MessageBox.Show("Tip sa oznakom " + query.ToList().First().Id + " već postoji.", "Duplikat", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+                return;
+            }
             ResourceType type = new ResourceType();
             type.Id = int.Parse(resTypeId.Text);
             type.Name = resTypeName.Text;
             type.Description = resTypeDescription.Text;
             type.Icon = resTypeImage.Source.ToString();
+
             manager.SaveResourceType(type);
         }
 

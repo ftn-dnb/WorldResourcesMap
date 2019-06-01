@@ -103,6 +103,8 @@ namespace WorldResourcesMap
             item.Name = txtBoxName.Text;
             item.Description = txtBoxDescription.Text;
             item.Icon = resTypeImage.Source.ToString();
+
+            this.manager.SaveResourceTypes();
         }
 
         private void DeleteItem(object sender, RoutedEventArgs e)
@@ -117,7 +119,7 @@ namespace WorldResourcesMap
             }
 
             this.manager.MapData.Types.Remove(item);
-            //TODO: potrebno je sacuvati izmjenu u JSON fajl ( nova metoda )
+            this.manager.SaveResourceTypes();
         }
 
         private void AddImage(object sender, RoutedEventArgs e)
