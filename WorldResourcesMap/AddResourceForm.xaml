@@ -19,9 +19,8 @@
                 <TextBox Name="resDescription" Margin="0 5 0 0" TextWrapping="Wrap" 
                          AcceptsReturn="True" VerticalScrollBarVisibility="Visible" MaxWidth="130" MaxHeight="50" Height="50"></TextBox>
 
-                <TextBlock Margin="0 5 0 0">Tip:</TextBlock>
-                <ComboBox ItemsSource="{Binding MapData.Types}" Name="resType" Margin="0 5 0 0"></ComboBox>
-
+                <TextBlock Margin="0 5 0 0" Name="resTypeName">Tip:</TextBlock>
+                <Button Click="TypeSelection">Odabir tipa</Button>
                 <TextBlock Margin="0 5 0 0">Datum otkrivanja:</TextBlock>
                 <DatePicker Name="resDateFound" Margin="0 5 0 0"></DatePicker>
             </StackPanel>

@@ -16,10 +16,17 @@ namespace WorldResourcesMap
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+       
         private int id;
         private string name;
         private string icon;
         private string description;
+
+
+        public override string ToString()
+        {
+            return this.name;
+        }
 
         public int Id
         {
