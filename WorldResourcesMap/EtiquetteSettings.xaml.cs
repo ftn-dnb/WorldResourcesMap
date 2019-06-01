@@ -93,7 +93,7 @@ namespace WorldResourcesMap
             {
                 if (string.Compare(filtered.ToList().First().Id.ToString(), this.selected_id) != 0)
                 {
-                    idTextBox.Background = Brushes.Salmon;
+                    //idTextBox.Background = Brushes.Salmon;
                     idTextBoxError.Text = "Oznaka mora biti jedinstvena.";
                     this.valid = false;
                 }
