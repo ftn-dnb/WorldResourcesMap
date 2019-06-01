@@ -54,7 +54,8 @@
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="2" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}" Margin="10,10,10,10">
             <TextBlock>Oznaka:</TextBlock>
-            <TextBox Name="idTextBox"></TextBox>
+            <TextBox Name="idTextBox" KeyUp="keyUpChangeId"></TextBox>
+            <TextBlock Name="idTextBoxError" Foreground="Red"></TextBlock>
             <TextBlock >Boja:</TextBlock>
             <xctk:ColorPicker Name="colorPicker"></xctk:ColorPicker>
             <TextBlock>Opis:</TextBlock>

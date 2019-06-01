@@ -54,7 +54,8 @@
 
         <StackPanel Grid.Column="0" Grid.Row="2" Margin="5,5,5,5">
             <TextBlock>Oznaka:</TextBlock>
-            <TextBox Name="txtBoxId"></TextBox>
+            <TextBox Name="txtBoxId" KeyUp="keyUpChangeId"></TextBox>
+            <TextBlock Name="idTextBoxError" Foreground="Red"></TextBlock>
 
             <TextBlock >Naziv:</TextBlock>
             <TextBox Name="txtBoxName"></TextBox>
