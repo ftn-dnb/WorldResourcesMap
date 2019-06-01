@@ -81,7 +81,7 @@ namespace WorldResourcesMap
         public void SaveEtiquette(Etiquette e)
         {
             MapData.Etiquettes.Add(e);
-            //SaveDataToFile();
+           
 
             string dataString = JsonConvert.SerializeObject(MapData.Etiquettes);
 
