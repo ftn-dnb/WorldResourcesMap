@@ -140,6 +140,7 @@ namespace WorldResourcesMap
             item.Icon = resTypeImage.Source.ToString();
 
             this.manager.SaveResourceTypes();
+            this.manager.SaveResources();
         }
 
         private void DeleteItem(object sender, RoutedEventArgs e)

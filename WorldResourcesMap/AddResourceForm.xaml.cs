@@ -22,11 +22,13 @@ namespace WorldResourcesMap
     {
 
         private DataManager manager;
+        private Resource resource;
         public AddResourceForm(DataManager manager)
         {
             InitializeComponent();
             this.manager = manager;
             this.DataContext = this.manager;
+            resource = new Resource();
         }
 
         private void AddImage(object sender, RoutedEventArgs e)
@@ -48,11 +50,11 @@ namespace WorldResourcesMap
            
 
             // dodati proveru
-            Resource resource = new Resource();
+            //Resource resource = new Resource();
             resource.Id = int.Parse(resId.Text);
             resource.Name = resName.Text;
             resource.Description = resDescription.Text;
-            resource.Type = (ResourceType)resType.SelectedItem;
+            
             resource.DiscoveryDate = (DateTime)resDateFound.SelectedDate;
             resource.Frequency = resFrequency.SelectionBoxItem.ToString();
             resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
@@ -63,9 +65,12 @@ namespace WorldResourcesMap
             resource.Renewable = (bool)resRenewable.IsChecked;
             resource.StrategicImportance = (bool)resStrategicImportance.IsChecked;
             resource.Exploitation = (bool)resExploatation.IsChecked;
-
+            
 
             manager.SaveResource(resource);
+
+            resource = new Resource();
+            resTypeName.Text = "Tip:";
 
 
         }
@@ -74,6 +79,13 @@ namespace WorldResourcesMap
         {
             // @TODO: find a better way to close a dialog
             this.Visibility = Visibility.Hidden;
+        }
+
+        private void TypeSelection(object sender, RoutedEventArgs e)
+        {
+            var form = new ResourceTypeSelection(manager, resource);
+            form.ShowDialog();
+            resTypeName.Text = "Tip: " + resource.Type.Name;
         }
     }
 }

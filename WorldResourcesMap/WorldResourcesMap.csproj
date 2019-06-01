@@ -110,6 +110,9 @@
     </Compile>
     <Compile Include="ResourceType.cs" />
     <Compile Include="Etiquette.cs" />
+    <Compile Include="ResourceTypeSelection.xaml.cs">
+      <DependentUpon>ResourceTypeSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ResourceTypeSettings.xaml.cs">
       <DependentUpon>ResourceTypeSettings.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourceSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceTypeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
