@@ -41,6 +41,20 @@ namespace WorldResourcesMap
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
 
+        private void keyUpSearch(object sender, RoutedEventArgs e)
+        {
+            this.manager.resetResourceCounter();
+            var filtered = this.manager.MapData.Resources.Where(res => res.Name.ToString().StartsWith(Search.Text));
+            dgrMain.ItemsSource = filtered;
+        }
+
+        private void selectionChangedSearch(object sender, RoutedEventArgs e)
+        {
+            this.manager.resetResourceCounter();
+            var filtered = this.manager.MapData.Resources.Where(res => res.Name.ToString().StartsWith(Search.Text));
+            dgrMain.ItemsSource = filtered;
+        }
+
         private ICollectionView _View;
         public ICollectionView View
         {

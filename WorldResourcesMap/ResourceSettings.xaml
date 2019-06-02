@@ -4,19 +4,46 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldResourcesMap"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         mc:Ignorable="d"
         Title="ResourceSettings" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="CustomTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding Id}"
+                       Width="100"
+                       Foreground="DarkGray" />
+                <Label Content="{Binding Name}"
+                       FontStyle="Italic" />
+                <Label Content="{Binding Description}"
+                       FontStyle="Italic"
+                       Foreground="DarkGray" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-        <DataGrid Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Resources}" 
+        <toolkit:AutoCompleteBox Grid.Row="0"
+                                 ItemsSource="{Binding MapData.Resources}"
+                                 ValueMemberPath="Name"
+                                 ItemTemplate="{StaticResource CustomTemplate}"
+                                 ItemFilter="{Binding ResourceFilter}"
+                                 IsTextCompletionEnabled="True"
+                                 VerticalAlignment="Center"
+                                 ToolTip="Pretraži etiketu po oznaci.."
+                                 Text="Pretraga etikete.."
+                                 Margin="5,5,5,5"
+                                 x:Name="Search" KeyUp="keyUpSearch" SelectionChanged="selectionChangedSearch">
+        </toolkit:AutoCompleteBox>
+        <DataGrid Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Resources}" 
                   IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
                   SelectionChanged="ResourceSelectionChanged">
             <DataGrid.Columns>
@@ -30,7 +57,7 @@
         </DataGrid>
         
         
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
+        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
             <StackPanel Orientation="Vertical" Margin="20 0 20 0">
                 <TextBlock>Oznaka:</TextBlock>
                 <TextBox Name="txtBoxId" ToolTip="Polje za unos oznake resursa"></TextBox>

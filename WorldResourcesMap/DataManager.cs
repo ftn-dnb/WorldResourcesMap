@@ -58,6 +58,16 @@ namespace WorldResourcesMap
             }
         }
 
+        public AutoCompleteFilterPredicate<object> ResourceFilter
+        {
+            get
+            {
+                return (searchText, obj) =>
+                (obj as Resource).Name.StartsWith(searchText)
+                && resourceCounter++ < 5;
+            }
+        }
+
 
         public void SaveDataToFile()
         {
