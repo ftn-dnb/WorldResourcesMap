@@ -141,8 +141,30 @@ namespace WorldResourcesMap
 
             manager.SaveResource(resource);
 
+            MessageBox.Show("Upravo ste dodali resurs sa id " + resource.Id,
+                "Dodat resurs", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            //resetovanje forme
+            resId.Text = "";
+            resName.Text = "";
+            resDescription.Text = "";
+
             resource = new Resource();
             resTypeName.Text = "Tip:";
+
+            resDateFound.SelectedDate = null;
+            resFrequency.SelectedItem = null;
+            resUnit.SelectedItem = null;
+            resMap.SelectedItem = null;
+            resPrice.Text = "";
+
+            resRenewable.IsChecked = false;
+            resStrategicImportance.IsChecked = false;
+            resExploatation.IsChecked = false;
+
+
+            resImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
 
 
         }
@@ -157,7 +179,13 @@ namespace WorldResourcesMap
         {
             var form = new ResourceTypeSelection(manager, resource);
             form.ShowDialog();
+            if(resource.Type == null)
+            {
+                resTypeName.Text = "Tip: Niste izabrali tip!";
+                resTypeName.Foreground = Brushes.Red;
+            }
             resTypeName.Text = "Tip: " + resource.Type.Name;
+            resTypeName.Foreground = Brushes.Black; // bug ako je null tip
         }
 
         private void EtiqettePick(object sender, RoutedEventArgs e)
