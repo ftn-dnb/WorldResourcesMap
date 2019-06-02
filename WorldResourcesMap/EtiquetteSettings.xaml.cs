@@ -143,12 +143,12 @@ namespace WorldResourcesMap
                 return;
             }
 
-            if (colorPicker.SelectedColor == null)
-            {
-                MessageBox.Show("Morate odabrati boju etikete.", "Nedovršen unos podataka", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return;
-            }
+            //if (colorPicker.SelectedColor == null)
+            //{
+            //    MessageBox.Show("Morate odabrati boju etikete.", "Nedovršen unos podataka", MessageBoxButton.OK,
+            //        MessageBoxImage.Error);
+            //    return;
+            //}
 
             if (descTextBox.Text.Length == 0)
             {
@@ -223,6 +223,15 @@ namespace WorldResourcesMap
             }
         }
 
-        
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[2]);
+
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                HelpProvider.ShowHelp(str, this);
+            }
+        }
     }
 }

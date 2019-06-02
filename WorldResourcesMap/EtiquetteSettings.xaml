@@ -7,8 +7,12 @@
         xmlns:local="clr-namespace:WorldResourcesMap"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         xmlns:val="clr-namespace:WorldResourcesMap.Validation"
+        xmlns:l="clr-namespace:WorldResourcesMap"
         mc:Ignorable="d"
         Title="Upravljanje postojećim etiketama" Height="620" Width="350" MinHeight="620" MinWidth="350" Name="winTable">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
     <Window.Resources>
         <DataTemplate x:Key="CustomTemplate">
             <StackPanel Orientation="Horizontal">
@@ -57,7 +61,7 @@
         </DataGrid>
         <StackPanel Grid.Column="0" Grid.Row="2" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}" Margin="10,10,10,10">
             <TextBlock>Oznaka:</TextBlock>
-            <TextBox Name="idTextBox" KeyUp="keyUpChangeId" ToolTip="Polje za unos oznake etikete"></TextBox>
+            <TextBox Name="idTextBox" KeyUp="keyUpChangeId" ToolTip="Polje za unos oznake etikete" l:HelpProvider.HelpKey="Oznaka"></TextBox>
             <TextBlock Name="idTextBoxError" Foreground="Red"></TextBlock>
             
             <TextBlock>Boja:</TextBlock>

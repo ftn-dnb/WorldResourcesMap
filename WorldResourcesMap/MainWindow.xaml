@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldResourcesMap"
         mc:Ignorable="d"
+        xmlns:l="clr-namespace:WorldResourcesMap"
         Title="Mapa svetskih resursa" Height="450" Width="800" MinHeight="450" MinWidth="800">
-
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed_Main"/>
+    </Window.CommandBindings>
     <DockPanel>
 
         <ToolBarTray DockPanel.Dock="Top">
