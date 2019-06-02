@@ -101,5 +101,36 @@ namespace WorldResourcesMap
             var form = new EtiquettePicker(manager, resource);
             form.ShowDialog();
         }
+
+        private void ExploatationMsgUnmark(object sender, RoutedEventArgs e)
+        {
+            resExploatation.ToolTip = "Poništi oznaku";
+        }
+
+        private void DefaultExploatationMsg(object sender, RoutedEventArgs e)
+        {
+            resExploatation.ToolTip = "Označi resurs eksploatisanim";
+        }
+
+        private void DefaultRenewableMsg(object sender, RoutedEventArgs e)
+        {
+            resRenewable.ToolTip = "Označi resurs obnovljivim";
+        }
+
+        private void RenewableMsgUnmark(object sender, RoutedEventArgs e)
+        {
+            resRenewable.ToolTip = "Poništi oznaku";
+        }
+
+        private void DefaultStrategicImportanceMsg(object sender, RoutedEventArgs e)
+        {
+            resStrategicImportance.ToolTip = "Označi resurs strateški bitnim";
+        }
+
+        private void StrategicImportanceMsgUnmark(object sender, RoutedEventArgs e)
+        {
+            resStrategicImportance.ToolTip = "Poništi oznaku";
+        }
+
     }
 }
