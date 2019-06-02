@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace WorldResourcesMap
 {
@@ -21,7 +22,8 @@ namespace WorldResourcesMap
     public partial class ResourceSettings : Window, INotifyPropertyChanged
     {
         private DataManager manager;
-
+        private ResourceType new_resource_type;
+        private ObservableCollection<Etiquette> new_tags;
         private string selected_id;
 
 
@@ -87,6 +89,11 @@ namespace WorldResourcesMap
                 resStrategicImportance.IsChecked = resource.StrategicImportance;
                 resExploatation.IsChecked = resource.Exploitation;
                 resImage.Source = new BitmapImage(new Uri(resource.Icon));
+                resType.Text = "Tip: " + resource.Type.Name;
+
+                new_resource_type = resource.Type;
+                new_tags = resource.Tags;
+
             }
             catch(Exception ex)
             {
@@ -97,15 +104,58 @@ namespace WorldResourcesMap
         private void EtiquettePicker(object sender, RoutedEventArgs e)
         {
             Resource resource = dgrMain.SelectedItem as Resource;
-            var form = new EtiquettePicker(manager, resource);
+            Resource fake_resource = new Resource();
+            foreach(Etiquette tag in resource.Tags)
+            {
+                fake_resource.Tags.Add(tag);
+            }
+            var form = new EtiquettePicker(manager, fake_resource);
             form.ShowDialog();
+
+            new_tags = fake_resource.Tags;
         }
 
         private void ResourceTypePicker(object sender, RoutedEventArgs e)
         {
             Resource resource = dgrMain.SelectedItem as Resource;
-            var form = new ResourceTypeSelection(manager, resource);
+            Resource fake_resource = new Resource();
+            fake_resource.Type = resource.Type;
+            var form = new ResourceTypeSelection(manager, fake_resource);
             form.ShowDialog();
+
+            resType.Text = "Tip: " + fake_resource.Type.Name;
+            new_resource_type = fake_resource.Type;
+        }
+
+        private void ResourceEdit(object sender, RoutedEventArgs e)
+        {
+            //provera
+            Resource resource = dgrMain.SelectedItem as Resource;
+
+            resource.Id = int.Parse(txtBoxId.Text);
+            resource.Name = txtBoxName.Text;
+            resource.Description = txtBoxName.Text;
+
+            resource.DiscoveryDate = (DateTime)resDateFound.SelectedDate;
+            resource.Frequency = resFrequency.SelectionBoxItem.ToString();
+            resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
+            resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString());
+            resource.Price = int.Parse(resPrice.Text);
+
+            resource.Icon = resImage.Source.ToString();
+
+            resource.Renewable = (bool)resRenewable.IsChecked;
+            resource.StrategicImportance = (bool)resStrategicImportance.IsChecked;
+            resource.Exploitation = (bool)resExploatation.IsChecked;
+
+            resource.Type = new_resource_type;
+            resource.Tags = new_tags;
+
+            manager.SaveResources();
+
+            MessageBox.Show("Upravo ste izmenili resurs sa id " + resource.Id,
+                "Dodat resurs", MessageBoxButton.OK,
+                MessageBoxImage.Information);
         }
 
         private void DefaultRenewableMsg(object sender, RoutedEventArgs e)
@@ -137,6 +187,8 @@ namespace WorldResourcesMap
         {
             resExploatation.ToolTip = "Označi resurs eksploatisanim";
         }
+
+        
 
     }
 }
