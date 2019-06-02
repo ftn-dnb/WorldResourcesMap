@@ -49,8 +49,72 @@ namespace WorldResourcesMap
         {
            
 
-            // dodati proveru
-            //Resource resource = new Resource();
+            if(resId.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za oznaku resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(resName.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za naziv resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(resDescription.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za opis resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(resource.Type == null)
+            {
+                MessageBox.Show("Morate izabrati tip resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(resDateFound.SelectedDate == null)
+            {
+                MessageBox.Show("Morate izabrati datum otkrivanja resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(resFrequency.SelectedItem == null)
+            {
+                MessageBox.Show("Morate odabrati frekvenciju ponavljanja resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(resUnit.SelectedItem == null)
+            {
+                MessageBox.Show("Morate odabrati jedinicu mere resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+
+            }
+
+            if (resMap.SelectedItem == null)
+            {
+                MessageBox.Show("Morate uneti cenu resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+
+            }
+
+            if(resPrice.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za oznaku resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            
             resource.Id = int.Parse(resId.Text);
             resource.Name = resName.Text;
             resource.Description = resDescription.Text;
