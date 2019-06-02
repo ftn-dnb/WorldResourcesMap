@@ -262,6 +262,14 @@ namespace WorldResourcesMap
                 DragDrop.DoDragDrop(map, data, DragDropEffects.Move);
             }
         }
-
+        private void CommandBinding_Executed_Main(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.MainWindow);
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                HelpProvider.ShowHelp(str, this);
+            }
+        }
     }
 }
