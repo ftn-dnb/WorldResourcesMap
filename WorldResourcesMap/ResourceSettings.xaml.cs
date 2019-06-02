@@ -158,6 +158,14 @@ namespace WorldResourcesMap
                 MessageBoxImage.Information);
         }
 
+        private void DeleteResource(object sender, RoutedEventArgs e)
+        {
+            Resource resource = dgrMain.SelectedItem as Resource;
+
+            this.manager.MapData.Resources.Remove(resource);
+            this.manager.SaveResources();
+        }
+
         private void DefaultRenewableMsg(object sender, RoutedEventArgs e)
         {
             resRenewable.ToolTip = "Označi resurs obnovljivim";

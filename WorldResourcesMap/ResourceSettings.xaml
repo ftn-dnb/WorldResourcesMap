@@ -121,7 +121,7 @@
             </StackPanel>
            
             <StackPanel Orientation="Vertical">
-                <Button ToolTip="Brisanje odabranog resursa">Obriši</Button>
+                <Button Click="DeleteResource" ToolTip="Brisanje odabranog resursa">Obriši</Button>
                 <Button Click="ResourceEdit" ToolTip="Izmena odabranog resursa">Izmeni</Button>
             </StackPanel>
         </StackPanel>
