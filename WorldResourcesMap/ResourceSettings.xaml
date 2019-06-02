@@ -41,8 +41,8 @@
                 <TextBlock>Opis:</TextBlock>
                 <TextBox Name="txtBoxDescription" TextWrapping="Wrap"></TextBox>
 
-                <TextBlock>Tip:</TextBlock>
-                <ComboBox></ComboBox>
+                <TextBlock Name="resType">Tip:</TextBlock>
+                <Button Click="ResourceTypePicker" Height="20" Width="130">Izaberi tip</Button>
 
             </StackPanel>
             

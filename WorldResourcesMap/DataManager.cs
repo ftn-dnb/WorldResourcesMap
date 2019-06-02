@@ -75,7 +75,6 @@ namespace WorldResourcesMap
             ReadEtiquette();
             ReadResourcesTypes();
             ReadResources();
-            Console.WriteLine("Bicu student ftn-a 2032");
         }
 
         
@@ -169,7 +168,7 @@ namespace WorldResourcesMap
                 // ja bih koristio mape ovde
                 foreach(Resource r in resourceList)
                 {
-                    List<Etiquette> listaE = new List<Etiquette>();
+                    ObservableCollection<Etiquette> listaE = new ObservableCollection<Etiquette>();
                     foreach(ResourceType rt in MapData.Types)
                     {
                         if(rt.Id == r.Type.Id)

@@ -86,5 +86,12 @@ namespace WorldResourcesMap
             var form = new EtiquettePicker(manager, resource);
             form.ShowDialog();
         }
+
+        private void ResourceTypePicker(object sender, RoutedEventArgs e)
+        {
+            Resource resource = dgrMain.SelectedItem as Resource;
+            var form = new ResourceTypeSelection(manager, resource);
+            form.ShowDialog();
+        }
     }
 }
