@@ -20,9 +20,9 @@
                          AcceptsReturn="True" VerticalScrollBarVisibility="Visible" MaxWidth="130" MaxHeight="50" Height="50" ToolTip="Polje za unos opisa resursa"></TextBox>
 
                 <TextBlock Margin="0 5 0 0" Name="resTypeName">Tip:</TextBlock>
-                <Button Click="TypeSelection" ToolTip="Otvori tabelu tipova">Odabir tipa</Button>
+                <Button Click="TypeSelection" ToolTip="Otvori tabelu tipova">Izaberi tip</Button>
                 <TextBlock Margin="0 5 0 0" >Datum otkrivanja:</TextBlock>
-                <DatePicker Name="resDateFound" Margin="0 5 0 0" ToolTip="Odaberi daum otkrivanja" ></DatePicker>
+                <DatePicker Name="resDateFound" Margin="0 5 0 0" ToolTip="Odaberi datum otkrivanja" ></DatePicker>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Margin="20 0 20 0">

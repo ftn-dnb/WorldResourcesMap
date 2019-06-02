@@ -33,29 +33,29 @@
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
             <StackPanel Orientation="Vertical" Margin="20 0 20 0">
                 <TextBlock>Oznaka:</TextBlock>
-                <TextBox Name="txtBoxId"></TextBox>
+                <TextBox Name="txtBoxId" ToolTip="Polje za unos oznake resursa"></TextBox>
 
                 <TextBlock>Naziv:</TextBlock>
-                <TextBox Name="txtBoxName"></TextBox>
+                <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva resursa"></TextBox>
 
                 <TextBlock>Opis:</TextBlock>
-                <TextBox Name="txtBoxDescription" TextWrapping="Wrap"></TextBox>
+                <TextBox Name="txtBoxDescription" TextWrapping="Wrap" ToolTip="Polje za unos opisa resursa"></TextBox>
 
                 <TextBlock Name="resType">Tip:</TextBlock>
-                <Button Click="ResourceTypePicker" Height="20" Width="130">Izaberi tip</Button>
+                <Button Click="ResourceTypePicker" Height="20" Width="130" ToolTip="Otvori tabelu tipova">Izaberi tip</Button>
 
             </StackPanel>
             
             <StackPanel Orientation="Vertical" Margin="20 0 20 0">
                 <TextBlock >Frekvencija pojavljivanja:</TextBlock>
-                <ComboBox Name="resFrequency">
+                <ComboBox Name="resFrequency" ToolTip="Odaberi frekvenciju ponavljanja resursa">
                     <ComboBoxItem>redak</ComboBoxItem>
                     <ComboBoxItem>cest</ComboBoxItem>
                     <ComboBoxItem>univerzalan</ComboBoxItem>
                 </ComboBox>
 
                 <TextBlock >Jedinica mere:</TextBlock>
-                <ComboBox Name="resUnit">
+                <ComboBox Name="resUnit" ToolTip="Odaberi jedinicu mere resursa">
                     <ComboBoxItem>merica</ComboBoxItem>
                     <ComboBoxItem>barel</ComboBoxItem>
                     <ComboBoxItem>tona</ComboBoxItem>
@@ -63,7 +63,7 @@
                 </ComboBox>
 
                 <TextBlock >Mapa:</TextBlock>
-                <ComboBox Name="resMap">
+                <ComboBox Name="resMap" ToolTip="Odaberi mapu na kojoj će se resurs prikazati">
                     <ComboBoxItem>1</ComboBoxItem>
                     <ComboBoxItem>2</ComboBoxItem>
                     <ComboBoxItem>3</ComboBoxItem>
@@ -71,31 +71,31 @@
                 </ComboBox>
 
                 <TextBlock >Cena ($):</TextBlock>
-                <TextBox Name="resPrice" Width="130" MaxWidth="130"></TextBox>
+                <TextBox Name="resPrice" Width="130" MaxWidth="130" ToolTip="Polje za unos cene resursa"></TextBox>
 
-                <Button Click="EtiquettePicker">Etiketa</Button>
+                <Button Click="EtiquettePicker" ToolTip="Otvori tabelu etiketa">Odabir etiketa</Button>
                 
             </StackPanel>
             <StackPanel>
                 <TextBlock>Datum otkrivanja:</TextBlock>
-                <DatePicker Name="resDateFound" Margin="0 5 0 0 "></DatePicker>
-                <CheckBox Name="resRenewable" Margin="0 5 0 0">Obnovljiv resurs</CheckBox>
-                <CheckBox Name="resStrategicImportance" Margin="0 5 0 0">Strateski bitan</CheckBox>
-                <CheckBox Name="resExploatation" Margin="0 5 0 0">Moguca eksploatacija</CheckBox>
+                <DatePicker Name="resDateFound" Margin="0 5 0 0 " ToolTip="Odaberi datum otkrivanja"></DatePicker>
+                <CheckBox Name="resRenewable" Margin="0 5 0 0" ToolTip="Označi resurs obnovljivim" Checked="RenewableMsgUnmark" Unchecked="DefaultRenewableMsg">Obnovljiv resurs</CheckBox>
+                <CheckBox Name="resStrategicImportance" Margin="0 5 0 0" ToolTip="Označi resurs strateški bitnim" Checked="StrategicImportanceMsgUnmark" Unchecked="DefaultStrategicImportanceMsg">Strateški bitan</CheckBox>
+                <CheckBox Name="resExploatation" Margin="0 5 0 0" ToolTip="Označi resurs eksploatisanim" Checked="ExploatationMsgUnmark" Unchecked="DefaultExploatationMsg">Moguća eksploatacija</CheckBox>
             </StackPanel>
             
             <StackPanel Orientation="Vertical" Height="200" Width="200">
                 <Image Name="resImage" Source="./resources/images/no-image.png" Margin="0 10 0 0" Width="100" Height="100" />
                 <StackPanel Orientation="Horizontal">
-                    <Button  Margin="0 10 70 0">Ukloni sliku</Button>
-                    <Button  Margin="0 10 70 0">Dodaj sliku</Button>
+                    <Button  Margin="0 10 70 0" ToolTip="Odaberi novu sliku">Izmeni sliku</Button>
+                    <Button  Margin="0 10 70 0" ToolTip="Brisanje postojeće slike">Obriši sliku</Button>
                 </StackPanel>
                 
             </StackPanel>
            
             <StackPanel Orientation="Vertical">
-                <Button>obriši</Button>
-                <Button>Izmeni</Button>
+                <Button ToolTip="Brisanje odabranog resursa">Obriši</Button>
+                <Button ToolTip="Izmena odabranog resursa">Izmeni</Button>
             </StackPanel>
         </StackPanel>
         
