@@ -95,5 +95,11 @@ namespace WorldResourcesMap
             form.ShowDialog();
             resTypeName.Text = "Tip: " + resource.Type.Name;
         }
+
+        private void EtiqettePick(object sender, RoutedEventArgs e)
+        {
+            var form = new EtiquettePicker(manager, resource);
+            form.ShowDialog();
+        }
     }
 }

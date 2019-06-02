@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+
 
 namespace WorldResourcesMap
 {
@@ -28,7 +30,7 @@ namespace WorldResourcesMap
         private string unitOfMeasure;
         private float price;
         private DateTime discoveryDate;
-        private List<Etiquette> tags;
+        private ObservableCollection<Etiquette> tags;
         private int mapId;
         private int x;
         private int y;
@@ -213,7 +215,7 @@ namespace WorldResourcesMap
                 }
             }
         }
-        public List<Etiquette> Tags
+        public ObservableCollection<Etiquette> Tags
         {
             get
             {
@@ -295,7 +297,7 @@ namespace WorldResourcesMap
         public Resource()
         {
             onMap = false;
+            tags = new ObservableCollection<Etiquette>();
         }
-
     }
 }

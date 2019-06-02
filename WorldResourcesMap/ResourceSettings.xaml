@@ -73,7 +73,7 @@
                 <TextBlock >Cena ($):</TextBlock>
                 <TextBox Name="resPrice" Width="130" MaxWidth="130"></TextBox>
 
-                <Button>Etiketa</Button>
+                <Button Click="EtiquettePicker">Etiketa</Button>
                 
             </StackPanel>
             <StackPanel>

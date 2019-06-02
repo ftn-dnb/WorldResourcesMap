@@ -100,6 +100,9 @@
       <DependentUpon>AddResourceTypeForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataManager.cs" />
+    <Compile Include="EtiquettePicker.xaml.cs">
+      <DependentUpon>EtiquettePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetteSettings.xaml.cs">
       <DependentUpon>EtiquetteSettings.xaml</DependentUpon>
     </Compile>
@@ -117,8 +120,8 @@
       <DependentUpon>ResourceTypeSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation\EtiquetteValidationRule.cs" />
-    <Compile Include="Validation\NotEmptyValidationRule.cs" />
     <Compile Include="Validation\IdAsNumberValidationRule.cs" />
+    <Compile Include="Validation\NotEmptyValidationRule.cs" />
     <Page Include="AddEtiquetteForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddResourceTypeForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EtiquettePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,12 +155,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourceSettings.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourceTypeSelection.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourceTypeSettings.xaml">
       <SubType>Designer</SubType>
@@ -201,13 +208,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\images\no-image.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="resources\icons\img_etiquette_add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="resources\icons\img_resource_add.png" />
-    <Resource Include="resources\icons\img_type_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
