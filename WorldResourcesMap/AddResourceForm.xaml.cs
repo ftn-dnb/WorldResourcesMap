@@ -198,6 +198,7 @@ namespace WorldResourcesMap
             {
                 resTypeName.Text = "Tip: Niste izabrali tip!";
                 resTypeName.Foreground = Brushes.Red;
+                return;
             }
             resTypeName.Text = "Tip: " + resource.Type.Name;
             resTypeName.Foreground = Brushes.Black; // bug ako je null tip
