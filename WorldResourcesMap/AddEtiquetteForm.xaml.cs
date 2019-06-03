@@ -152,7 +152,8 @@ namespace WorldResourcesMap
                 MessageBoxImage.Information);
             txtBoxId.Text = "";
             txtBoxDescription.Text = "";
-            colorPicker.Background = Brushes.White;
+            //colorPicker.Background = Brushes.White;
+            colorPicker.SelectedColor = null;
         }
 
         private void CloseForm(object sender, RoutedEventArgs e)

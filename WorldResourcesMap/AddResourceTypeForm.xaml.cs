@@ -166,6 +166,8 @@ namespace WorldResourcesMap
             resTypeId.Text = "";
             resTypeDescription.Text = "";
             resTypeName.Text = "";
+
+            resTypeImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png", UriKind.Relative));
         }
 
         private void CloseForm(object sender, RoutedEventArgs e)
