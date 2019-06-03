@@ -52,7 +52,7 @@
         </toolkit:AutoCompleteBox>
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=Manager.MapData.Types}" 
-                  IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
+                  IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="False"
                   SelectionChanged="DataGridSelectionChanged" ToolTip="Prikaz svih tipova resursa">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
