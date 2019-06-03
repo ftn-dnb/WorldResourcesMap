@@ -220,6 +220,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Help\OznakaResurs.htm">
+
+    <Content Include="Help\NazivTipaResursa.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\OznakaTipaResursa.htm">
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Help\Oznaka.htm">
