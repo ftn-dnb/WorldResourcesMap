@@ -222,6 +222,9 @@
     <Content Include="Help\Oznaka.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="resources\icons\img_type_add.png" />
+    <Resource Include="resources\icons\img_resource_add.png" />
+    <Resource Include="resources\icons\img_etiquette_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
