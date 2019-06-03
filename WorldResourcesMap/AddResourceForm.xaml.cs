@@ -123,7 +123,7 @@ namespace WorldResourcesMap
             resource.Frequency = resFrequency.SelectionBoxItem.ToString();
             resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
             resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString()); 
-            resource.Price = int.Parse(resPrice.Text);
+            resource.Price = float.Parse(resPrice.Text);
             if(resImage.Source.ToString().Contains("no-image.png"))
             {
                 resource.Icon = resource.Type.Icon;

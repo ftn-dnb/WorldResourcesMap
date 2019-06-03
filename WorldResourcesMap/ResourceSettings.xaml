@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:WorldResourcesMap"
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         mc:Ignorable="d"
+        xmlns:l="clr-namespace:WorldResourcesMap"
         Title="ResourceSettings" Height="450" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="Help_ResourceSettingsForm"/>
+    </Window.CommandBindings>
     <Window.Resources>
         <DataTemplate x:Key="CustomTemplate">
             <StackPanel Orientation="Horizontal">
@@ -60,13 +64,13 @@
         <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
             <StackPanel Orientation="Vertical" Margin="20 0 20 0">
                 <TextBlock>Oznaka:</TextBlock>
-                <TextBox Name="txtBoxId" ToolTip="Polje za unos oznake resursa"></TextBox>
+                <TextBox Name="txtBoxId" ToolTip="Polje za unos oznake resursa" l:HelpProvider.HelpKey="IzmenaOznakeResursa"></TextBox>
 
                 <TextBlock>Naziv:</TextBlock>
-                <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva resursa"></TextBox>
+                <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva resursa" l:HelpProvider.HelpKey="IzmenaNazivaResursa"></TextBox>
 
                 <TextBlock>Opis:</TextBlock>
-                <TextBox Name="txtBoxDescription" TextWrapping="Wrap" ToolTip="Polje za unos opisa resursa"></TextBox>
+                <TextBox Name="txtBoxDescription" TextWrapping="Wrap" ToolTip="Polje za unos opisa resursa" l:HelpProvider.HelpKey="IzmenaOpisaResursa"></TextBox>
 
                 <TextBlock Name="resType">Tip:</TextBlock>
                 <Button Click="ResourceTypePicker" Height="20" Width="130" ToolTip="Otvori tabelu tipova">Izaberi tip</Button>
@@ -98,7 +102,7 @@
                 </ComboBox>
 
                 <TextBlock >Cena ($):</TextBlock>
-                <TextBox Name="resPrice" Width="130" MaxWidth="130" ToolTip="Polje za unos cene resursa"></TextBox>
+                <TextBox Name="resPrice" Width="130" MaxWidth="130" ToolTip="Polje za unos cene resursa" l:HelpProvider.HelpKey="IzmenaCeneResursa"></TextBox>
 
                 <Button Click="EtiquettePicker" ToolTip="Otvori tabelu etiketa">Odabir etiketa</Button>
                 

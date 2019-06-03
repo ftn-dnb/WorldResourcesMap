@@ -223,7 +223,7 @@ namespace WorldResourcesMap
             resource.Frequency = resFrequency.SelectionBoxItem.ToString();
             resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
             resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString());
-            resource.Price = int.Parse(resPrice.Text);
+            resource.Price = float.Parse(resPrice.Text);
 
             resource.Icon = resImage.Source.ToString();
 
@@ -282,6 +282,17 @@ namespace WorldResourcesMap
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Help_ResourceSettingsForm(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[1]);
+
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                HelpProvider.ShowHelp(str, this);
+            }
         }
     }
 }
