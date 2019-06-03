@@ -219,6 +219,7 @@
     <Resource Include="resources\images\no-image.png" />
   </ItemGroup>
   <ItemGroup>
+
     <Content Include="Help\BtnObrisiTipResursa.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -249,10 +250,16 @@
     <Content Include="Help\OpisTipaResursa.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
+    <Content Include="Help\OznakaResurs.htm">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
     <Content Include="Help\NazivTipaResursa.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Help\OznakaTipaResursa.htm">
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Help\Oznaka.htm">

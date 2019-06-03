@@ -4,13 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldResourcesMap"
+        xmlns:l="clr-namespace:WorldResourcesMap"
         mc:Ignorable="d"
         Title="AddResourceForm" Height="350" Width="550" MinHeight="350" MinWidth="550">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="Help_AddResourceForm"/>
+    </Window.CommandBindings>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock Margin="0 5 0 0">Oznaka resursa (ID):</TextBlock>
-                <TextBox Name="resId" Width="130" MaxWidth="130" Margin="0 5 0 0" ToolTip="Polje za unos oznake resursa"></TextBox>
+                <TextBox Name="resId" Width="130" MaxWidth="130" Margin="0 5 0 0" ToolTip="Polje za unos oznake resursa" l:HelpProvider.HelpKey="OznakaResurs"></TextBox>
 
                 <TextBlock Margin="0 5 0 0">Naziv:</TextBlock>
                 <TextBox Name="resName" MaxWidth="130" Margin="0 5 0 0" ToolTip="Polje za unos naziva resursa"></TextBox>

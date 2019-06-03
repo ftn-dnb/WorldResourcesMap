@@ -224,5 +224,15 @@ namespace WorldResourcesMap
             resStrategicImportance.ToolTip = "Poništi oznaku";
         }
 
+        private void Help_AddResourceForm(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[1]);
+
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                HelpProvider.ShowHelp(str, this);
+            }
+        }
     }
 }
