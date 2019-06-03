@@ -182,5 +182,17 @@ namespace WorldResourcesMap
             // @TODO: find a better way to close dialog
             this.Visibility = Visibility.Hidden;
         }
+
+        private void AddResourceTypeHelp_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[2]);
+
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+
+                HelpProvider.ShowHelp(str, this);
+            }
+        }
     }
 }
