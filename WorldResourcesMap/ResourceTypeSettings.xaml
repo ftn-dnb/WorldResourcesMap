@@ -7,7 +7,13 @@
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         xmlns:val="clr-namespace:WorldResourcesMap.Validation"
         mc:Ignorable="d"
+        xmlns:l="clr-namespace:WorldResourcesMap"
         Title="Upravljanje postojećim tipovima resursa" Height="500" Width="400" MinHeight="500" MinWidth="400">
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="ResourceTypeSettingsHelp_Executed"/>
+    </Window.CommandBindings>
+    
     <Window.Resources>
         <DataTemplate x:Key="CustomTemplate">
             <StackPanel Orientation="Horizontal">
@@ -41,11 +47,12 @@
                                  ToolTip="Pretraži tip resursa po imenu.."
                                  Text="Pretraga tipa po imenu.."
                                  Margin="5,5,5,5"
+                                 l:HelpProvider.HelpKey="PretragaTipaResursa"
                                  x:Name="Search" Grid.ColumnSpan="2" KeyUp="keyUpSearch" SelectionChanged="selectionChangedSearch">
         </toolkit:AutoCompleteBox>
 
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=Manager.MapData.Types}" 
-                  IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
+                  IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="False"
                   SelectionChanged="DataGridSelectionChanged" ToolTip="Prikaz svih tipova resursa">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
@@ -56,11 +63,11 @@
 
         <StackPanel Grid.Column="0" Grid.Row="2" Margin="5,5,5,5">
             <TextBlock>Oznaka:</TextBlock>
-            <TextBox Name="txtBoxId" KeyUp="keyUpChangeId" ToolTip="Polje za unos oznake tipa resursa"></TextBox>
+            <TextBox Name="txtBoxId" KeyUp="keyUpChangeId" ToolTip="Polje za unos oznake tipa resursa" l:HelpProvider.HelpKey="OznakaTipaResursa"></TextBox>
             <TextBlock Name="idTextBoxError" Foreground="Red"></TextBlock>
 
             <TextBlock>Naziv:</TextBlock>
-            <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva tipa resursa">
+            <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva tipa resursa" l:HelpProvider.HelpKey="NazivTipaResursaIzmena">
                 <TextBox.Text>
                     <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -88,7 +95,7 @@
 
             <TextBlock Margin="0 20 0 0">Opis:</TextBlock>
             <TextBox Name="txtBoxDescription" TextWrapping="Wrap" Height="80" MaxHeight="80"
-                    AcceptsReturn="True" VerticalScrollBarVisibility="Visible" ToolTip="Polje za unos opisa tipa resursa">
+                    AcceptsReturn="True" VerticalScrollBarVisibility="Visible" ToolTip="Polje za unos opisa tipa resursa" l:HelpProvider.HelpKey="OpisTipaResursaIzmena">
 
                 <TextBox.Text>
                     <Binding Path="Test2" UpdateSourceTrigger="PropertyChanged">
@@ -119,14 +126,14 @@
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
             <Image Name="resTypeImage" Margin="0 10 0 0" Width="150" Height="150" ToolTip="Slika tipa resursa" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Name="btnChangeImage" Click="AddImage" Width="70" Margin="5" ToolTip="Odabir nove slike">Izmeni sliku</Button>
-                <Button Name="btnRemoveImage" Click="RemoveImage" Width="70" Margin="5" ToolTip="Brisanje postojeće slike">Obriši sliku</Button>
+                <Button Name="btnChangeImage" Click="AddImage" Width="70" Margin="5" ToolTip="Odabir nove slike" l:HelpProvider.HelpKey="IzmeniSlikuTipResursa">Izmeni sliku</Button>
+                <Button Name="btnRemoveImage" Click="RemoveImage" Width="70" Margin="5" ToolTip="Brisanje postojeće slike" l:HelpProvider.HelpKey="ObrisiSlikuTipaResursa">Obriši sliku</Button>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button Name="btnEditType" Margin="5,15,5,5" Click="EditItem" ToolTip="Potvrđivanje izmene tipa resursa">Izmeni</Button>
-            <Button Name="btnRemoveType" Margin="5,15,5,5" Click="DeleteItem" ToolTip="Brisanje odabranog tipa resursa">Obriši</Button>
+            <Button Name="btnEditType" Margin="5,15,5,5" Click="EditItem" ToolTip="Potvrđivanje izmene tipa resursa" l:HelpProvider.HelpKey="BtnIzmenaTipaResursa">Izmeni</Button>
+            <Button Name="btnRemoveType" Margin="5,15,5,5" Click="DeleteItem" ToolTip="Brisanje odabranog tipa resursa" l:HelpProvider.HelpKey="BtnObrisiTipResursa">Obriši</Button>
         </StackPanel>
     </Grid>
 </Window>
