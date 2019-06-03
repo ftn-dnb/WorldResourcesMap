@@ -176,35 +176,37 @@ namespace WorldResourcesMap
                 }
 
                 // ja bih koristio mape ovde
-                foreach(Resource r in resourceList)
+                foreach (Resource r in resourceList)
                 {
-                    ObservableCollection<Etiquette> listaE = new ObservableCollection<Etiquette>();
-                    foreach(ResourceType rt in MapData.Types)
+                    if (r.Type != null)
                     {
-                        if(rt.Id == r.Type.Id)
+                        ObservableCollection<Etiquette> listaE = new ObservableCollection<Etiquette>();
+                        foreach (ResourceType rt in MapData.Types)
                         {
-                            r.Type = rt;
-                            break;
-                        }
-                    }
-
-                    if (r.Tags != null)
-                    {
-                        foreach (Etiquette tag in r.Tags)
-                        {
-
-                            foreach (Etiquette ee in MapData.Etiquettes)
+                            if (rt.Id == r.Type.Id)
                             {
-                                if (ee.Id == tag.Id)
+                                r.Type = rt;
+                                break;
+                            }
+                        }
+
+                        if (r.Tags != null)
+                        {
+                            foreach (Etiquette tag in r.Tags)
+                            {
+
+                                foreach (Etiquette ee in MapData.Etiquettes)
                                 {
-                                    listaE.Add(ee);
-                                    break;
+                                    if (ee.Id == tag.Id)
+                                    {
+                                        listaE.Add(ee);
+                                        break;
+                                    }
                                 }
                             }
                         }
+                        r.Tags = listaE;
                     }
-                    r.Tags = listaE;
-       
                 }
 
                 MapData.Resources = resourceList;
