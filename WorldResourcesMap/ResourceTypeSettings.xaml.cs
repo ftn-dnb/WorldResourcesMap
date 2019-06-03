@@ -278,6 +278,8 @@ namespace WorldResourcesMap
         {
             ResourceType item = dgrMain.SelectedItem as ResourceType;
             item.Icon = "./resources/images/no-image.png";
+            resTypeImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
+
         }
 
         private void DataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -303,7 +305,7 @@ namespace WorldResourcesMap
 
         private void ResourceTypeSettingsHelp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[2]);
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[1]);
 
             if (focusedControl is DependencyObject)
             {
