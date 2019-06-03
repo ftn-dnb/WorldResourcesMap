@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
 
 namespace WorldResourcesMap
 {
@@ -55,6 +56,25 @@ namespace WorldResourcesMap
             this.manager.resetResourceCounter();
             var filtered = this.manager.MapData.Resources.Where(res => res.Name.ToString().StartsWith(Search.Text));
             dgrMain.ItemsSource = filtered;
+        }
+
+        private void AddImage(object sender , RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Title = "Odaberi sliku";
+            fileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                                "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                                "Portable Network Graphic (*.png)|*.png";
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                resImage.Source = new BitmapImage(new Uri(fileDialog.FileName));
+            }
+        }
+
+        private void RemoveImage(object sender, RoutedEventArgs e)
+        {
+            resImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
         }
 
         private ICollectionView _View;
@@ -129,7 +149,70 @@ namespace WorldResourcesMap
 
         private void ResourceEdit(object sender, RoutedEventArgs e)
         {
-            //provera
+            if (txtBoxId.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za oznaku resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (txtBoxName.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za naziv resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (txtBoxDescription.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za opis resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (new_resource_type == null)
+            {
+                MessageBox.Show("Morate izabrati tip resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (resDateFound.SelectedDate == null)
+            {
+                MessageBox.Show("Morate izabrati datum otkrivanja resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (resFrequency.SelectedItem == null)
+            {
+                MessageBox.Show("Morate odabrati frekvenciju ponavljanja resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (resUnit.SelectedItem == null)
+            {
+                MessageBox.Show("Morate odabrati jedinicu mere resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+
+            }
+
+            if (resMap.SelectedItem == null)
+            {
+                MessageBox.Show("Morate uneti cenu resursa", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+
+            }
+
+            if (resPrice.Text.Length == 0)
+            {
+                MessageBox.Show("Morate popuniti polje za oznaku resursa", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             Resource resource = dgrMain.SelectedItem as Resource;
 
             resource.Id = int.Parse(txtBoxId.Text);
@@ -196,7 +279,9 @@ namespace WorldResourcesMap
             resExploatation.ToolTip = "Označi resurs eksploatisanim";
         }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
