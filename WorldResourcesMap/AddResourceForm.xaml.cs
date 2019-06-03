@@ -114,7 +114,22 @@ namespace WorldResourcesMap
                 return;
             }
 
-            
+
+            int id_test;
+            float price_test;
+            if (!int.TryParse(resId.Text, out id_test))
+            {
+                //dodati upozorenje
+                return;
+            }
+
+            if (!float.TryParse(resPrice.Text, out price_test))
+            {
+                //dodati upozorenje
+                return;
+            }
+
+
             resource.Id = int.Parse(resId.Text);
             resource.Name = resName.Text;
             resource.Description = resDescription.Text;

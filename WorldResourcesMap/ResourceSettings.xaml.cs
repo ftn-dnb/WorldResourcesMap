@@ -215,13 +215,28 @@ namespace WorldResourcesMap
             }
             Resource resource = dgrMain.SelectedItem as Resource;
 
+            int id_test;
+            float price_test;
+            if (!int.TryParse(txtBoxId.Text, out id_test))
+            {
+                //dodati upozorenje
+                return;
+            }
+
+            if (!float.TryParse(resPrice.Text, out price_test))
+            {
+                //dodati upozorenje
+                return;
+            }
             resource.Id = int.Parse(txtBoxId.Text);
+
             resource.Name = txtBoxName.Text;
             resource.Description = txtBoxName.Text;
 
             resource.DiscoveryDate = (DateTime)resDateFound.SelectedDate;
             resource.Frequency = resFrequency.SelectionBoxItem.ToString();
             resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
+
             resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString());
             resource.Price = float.Parse(resPrice.Text);
 
