@@ -69,7 +69,7 @@
             
             <TextBlock>Opis:</TextBlock>
             <TextBox Name="descTextBox" ToolTip="Polje za unos opisa etikete" TextWrapping="Wrap" AcceptsReturn="True" 
-                 VerticalScrollBarVisibility="Visible" MaxHeight="70" Height="70">
+                 VerticalScrollBarVisibility="Visible" MaxHeight="70" Height="70" l:HelpProvider.HelpKey="OpisEtiketa">
 
                 <TextBox.Text>
                     <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
@@ -97,7 +97,7 @@
             </TextBox>
             
             <StackPanel Margin="0 20 0 0" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="5,5,5,5" Click="ChangeItem" ToolTip="Potvrdjivanje izmene etikete">Izmeni</Button>
+                <Button Margin="5,5,5,5" Click="ChangeItem" ToolTip="Potvrdjivanje izmene etikete" l:HelpProvider.HelpKey="IzmenaEtiketa">Izmeni</Button>
                 <Button Margin="5,5,5,5" Click="DeleteItem" ToolTip="Brisanje odabrane etikete">Obriši</Button>
             </StackPanel>
         </StackPanel>

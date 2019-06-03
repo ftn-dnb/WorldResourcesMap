@@ -70,6 +70,18 @@ namespace WorldResourcesMap
             this.DataContext = this;
             View = CollectionViewSource.GetDefaultView(this.manager.MapData.Etiquettes);
             this.valid = true;
+            
+            EnableEditForm(false);
+        }
+
+        private void EnableEditForm(bool state)
+        {
+            //if (idTextBox == null) // Komponenta jos nije inicijalizovana
+            //    return;
+
+            this.idTextBox.IsEnabled = state;
+            this.descTextBox.IsEnabled = state;
+            this.colorPicker.IsEnabled = state;
         }
 
         private void keyUpSearch(object sender, RoutedEventArgs e)
@@ -122,6 +134,14 @@ namespace WorldResourcesMap
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
             Etiquette etiquette = dgrMain.SelectedItem as Etiquette;
+
+            if (etiquette == null)
+            {
+                MessageBox.Show("Nije moguće izvršiti brisanje.",
+                "Upozorenje o brisanju", MessageBoxButton.OK,
+                MessageBoxImage.Error);
+                return;
+            }
 
             if (MessageBox.Show("Da li ste sigurni da želite da obrišete etiketu sa oznakom " + etiquette.Id + " ?",
                 "Upozorenje o brisanju", MessageBoxButton.YesNo,
@@ -196,6 +216,7 @@ namespace WorldResourcesMap
 
         private void EtiquetteSelectionChanged(object sender, RoutedEventArgs e)
         {
+            EnableEditForm(true);
             try
             {
                 Etiquette etiquette = dgrMain.SelectedItem as Etiquette;

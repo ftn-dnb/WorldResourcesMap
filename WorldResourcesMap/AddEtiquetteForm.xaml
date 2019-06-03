@@ -6,8 +6,12 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:WorldResourcesMap"
         xmlns:val="clr-namespace:WorldResourcesMap.Validation"
+        xmlns:l="clr-namespace:WorldResourcesMap"
         mc:Ignorable="d"
         Title="Dodavanje etikete" Height="330" Width="400" MinHeight="330" MinWidth="400">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed_AddEtiquette"/>
+    </Window.CommandBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -15,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="10,10,10,10" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <TextBlock Margin="0 5 0 0">Oznaka etikete (ID):</TextBlock>
-            <TextBox Name="txtBoxId" Margin="0 5 0 0" ToolTip="Polje za unos oznake etikete" KeyUp="idTextChanged"></TextBox>
+            <TextBox Name="txtBoxId" Margin="0 5 0 0" ToolTip="Polje za unos oznake etikete" KeyUp="idTextChanged" l:HelpProvider.HelpKey="Oznaka"></TextBox>
             <TextBlock Name="txtBoxIdError" Foreground="Red"></TextBlock>
 
             <TextBlock Margin="0 5 0 0">Boja:</TextBlock>
@@ -24,7 +28,7 @@
 
             <TextBlock Margin="0 5 0 0">Opis:</TextBlock>
             <TextBox Name="txtBoxDescription" Margin="0 5 0 0" TextWrapping="Wrap" AcceptsReturn="True" 
-                 VerticalScrollBarVisibility="Visible" MaxHeight="80" Height="80" ToolTip="Polje za unos opisa etikete">
+                 VerticalScrollBarVisibility="Visible" MaxHeight="80" Height="80" ToolTip="Polje za unos opisa etikete" l:HelpProvider.HelpKey="OpisEtiketa">
 
                 <TextBox.Text>
                     <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
@@ -52,7 +56,7 @@
             </TextBox>
 
             <StackPanel Margin="0 15 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Margin="10 10 10 5" Click="AddEtiquette" ToolTip="Dodavanje nove etikete">Dodaj</Button>
+                <Button Margin="10 10 10 5" Click="AddEtiquette" ToolTip="Dodavanje nove etikete" l:HelpProvider.HelpKey="DodajEtiketa">Dodaj</Button>
                 <Button Margin="10 10 10 5" Click="CloseForm" ToolTip="Odustajanje od dodavanja nove etikete">Odustani</Button>
             </StackPanel>
         </StackPanel>
