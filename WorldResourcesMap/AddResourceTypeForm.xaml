@@ -61,7 +61,7 @@
             
             <TextBlock Margin="0 20 0 0">Opis:</TextBlock>
             <TextBox Name="resTypeDescription" TextWrapping="Wrap" ToolTip="Polje za unos opisa tipa resursa"
-                         AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="120">
+                         AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="120" l:HelpProvider.HelpKey="OpisTipaResursa">
 
                     <TextBox.Text>
                         <Binding Path="Test1" UpdateSourceTrigger="PropertyChanged">
@@ -102,12 +102,12 @@
        <StackPanel Grid.Row="0" Grid.Column="2" Margin="5,5,5,5" Orientation="Vertical" 
                    HorizontalAlignment="Center" VerticalAlignment="Center">
            <Image Name="resTypeImage" Source="./resources/images/no-image.png" Margin="0,10,10,0" Height="200" ToolTip="Slika tipa resursa" />
-           <Button Click="AddImage" Margin="50 10 50 0" ToolTip="Odabir slike za tip resursa">Dodaj sliku</Button>
+           <Button Click="AddImage" Margin="50 10 50 0" ToolTip="Odabir slike za tip resursa" l:HelpProvider.HelpKey="DodajSlikuTipResursa">Dodaj sliku</Button>
        </StackPanel>
 
        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-           <Button Margin="10 10 10 5" Click="AddResourceType" ToolTip="Dodavanje novog tipa resursa">Dodaj</Button>
-           <Button Margin="10 10 10 5" Click="CloseForm" ToolTip="Odustajanje od dodavanja tipa resursa">Odustani</Button>
+           <Button Margin="10 10 10 5" Click="AddResourceType" ToolTip="Dodavanje novog tipa resursa" l:HelpProvider.HelpKey="BtnDodajTipResursa">Dodaj</Button>
+           <Button Margin="10 10 10 5" Click="CloseForm" ToolTip="Odustajanje od dodavanja tipa resursa" l:HelpProvider.HelpKey="BtnOdustaniTipResursa">Odustani</Button>
        </StackPanel>
     </Grid>
 </Window>
