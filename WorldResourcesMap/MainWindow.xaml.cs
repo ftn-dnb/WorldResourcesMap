@@ -38,6 +38,47 @@ namespace WorldResourcesMap
             FindElementsForCurrentMap("1");
         }
 
+        private void keyUpSearch(object sender, RoutedEventArgs e)
+        {
+            DataManager.resetResourceCounter();
+            int selectedMap = int.Parse(cbMap.SelectionBoxItem.ToString());
+            var filtered = DataManager.MapData.Resources.Where(et => et.Name.StartsWith(Search.Text) && et.MapID == selectedMap);
+            Lista.ItemsSource = filtered;
+            
+            FindElementsForCurrentMapSearch(filtered.ToList());
+        }
+
+        private void selectionChangedSearch(object sender, RoutedEventArgs e)
+        {
+            DataManager.resetResourceCounter();
+            int selectedMap = int.Parse(cbMap.SelectionBoxItem.ToString());
+            var filtered = DataManager.MapData.Resources.Where(et => et.Name.StartsWith(Search.Text) && et.MapID == selectedMap);
+            Lista.ItemsSource = filtered;
+            FindElementsForCurrentMapSearch(filtered.ToList());
+        }
+
+        private void FindElementsForCurrentMapSearch(IList<Resource> filtered)
+        {
+            
+            //ResourcesList.Clear();
+            ResourcesOnMap.Clear();
+            CanvasMap.Children.Clear();
+            
+            foreach (Resource resource in filtered)
+            {
+                if (resource.OnMap) // Resource is on the map
+                {
+                    ResourcesOnMap.Add(resource);
+                    AddIconToMap(resource);
+                }
+                try
+                {
+                    //ResourcesList.Add(resource);
+                }
+                catch (Exception e) { }
+            }
+        }
+
         private void FindElementsForCurrentMap(string selectedMap)
         {
             int map = int.Parse(selectedMap);
@@ -46,6 +87,7 @@ namespace WorldResourcesMap
                                     where r.MapID == map
                                     select r).ToList();
 
+            Lista.ItemsSource = ResourcesList;
             ResourcesList.Clear();
             ResourcesOnMap.Clear();
             CanvasMap.Children.Clear();
