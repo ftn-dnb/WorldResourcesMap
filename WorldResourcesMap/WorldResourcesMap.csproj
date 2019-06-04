@@ -126,7 +126,6 @@
     </Compile>
     <Compile Include="Validation\EtiquetteValidationRule.cs" />
     <Compile Include="Validation\IdAsNumberValidationRule.cs" />
-    <Compile Include="Validation\MinMaxValidationRule.cs" />
     <Compile Include="Validation\NotEmptyValidationRule.cs" />
     <Page Include="AddEtiquetteForm.xaml">
       <SubType>Designer</SubType>

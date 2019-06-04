@@ -23,16 +23,99 @@ namespace WorldResourcesMap
     public partial class ResourceSettings : Window, INotifyPropertyChanged
     {
         private DataManager manager;
+        public DataManager Manager
+        {
+            get
+            {
+                return manager;
+            }
+            set
+            {
+                if (value != manager)
+                {
+                    manager = value;
+                    OnPropertyChanged("Manager");
+                }
+            }
+        }
+
         private ResourceType new_resource_type;
         private ObservableCollection<Etiquette> new_tags;
         private string selected_id;
 
+        private string _test0;
+        public string Test0
+        {
+            get
+            {
+                return _test0;
+            }
+            set
+            {
+                if (value != _test0)
+                {
+                    _test0 = value;
+                    OnPropertyChanged("Test0");
+                }
+            }
+        }
+
+        private string _test1;
+        public string Test1
+        {
+            get
+            {
+                return _test1;
+            }
+            set
+            {
+                if (value != _test1)
+                {
+                    _test1 = value;
+                    OnPropertyChanged("Test1");
+                }
+            }
+        }
+
+        private string _test2;
+        public string Test2
+        {
+            get
+            {
+                return _test2;
+            }
+            set
+            {
+                if (value != _test2)
+                {
+                    _test2 = value;
+                    OnPropertyChanged("Test2");
+                }
+            }
+        }
+
+        private float _test3;
+        public float Test3
+        {
+            get
+            {
+                return _test3;
+            }
+            set
+            {
+                if (value != _test3)
+                {
+                    _test3 = value;
+                    OnPropertyChanged("Test3");
+                }
+            }
+        }
 
         public ResourceSettings(DataManager manager)
         {
             InitializeComponent();
             this.manager = manager;
-            this.DataContext = this.manager;
+            this.DataContext = this;
 
             View = CollectionViewSource.GetDefaultView(this.manager.MapData.Resources);
         }
