@@ -12,6 +12,7 @@
         <CommandBinding Command="ApplicationCommands.Help" Executed="Help_ResourceSettingsForm"/>
     </Window.CommandBindings>
     <Window.Resources>
+
         <DataTemplate x:Key="CustomTemplate">
             <StackPanel Orientation="Horizontal">
                 <Label Content="{Binding Id}"
@@ -30,12 +31,18 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="6*"></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            
         </Grid.ColumnDefinitions>
         <toolkit:AutoCompleteBox Grid.Row="0"
+                                 Grid.ColumnSpan="4"
                                  ItemsSource="{Binding MapData.Resources}"
                                  ValueMemberPath="Name"
                                  ItemTemplate="{StaticResource CustomTemplate}"
@@ -47,7 +54,7 @@
                                  Margin="5,5,5,5"
                                  x:Name="Search" KeyUp="keyUpSearch" SelectionChanged="selectionChangedSearch">
         </toolkit:AutoCompleteBox>
-        <DataGrid Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Resources}" 
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="4" Margin="5,5,5,5" x:Name="dgrMain" ItemsSource="{Binding Path=MapData.Resources}" 
                   IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
                   SelectionChanged="ResourceSelectionChanged">
             <DataGrid.Columns>
@@ -59,77 +66,77 @@
                 <DataGridTextColumn Header="Datum" Width="*" Binding="{Binding DiscoveryDate}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        
-        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
-            <StackPanel Orientation="Vertical" Margin="20 0 20 0">
-                <TextBlock>Oznaka:</TextBlock>
-                <TextBox Name="txtBoxId" ToolTip="Polje za unos oznake resursa" l:HelpProvider.HelpKey="IzmenaOznakeResursa"></TextBox>
 
-                <TextBlock>Naziv:</TextBlock>
-                <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva resursa" l:HelpProvider.HelpKey="IzmenaNazivaResursa"></TextBox>
+        <StackPanel Orientation="Vertical" Margin="20 0 20 0" Grid.Column="0" Grid.Row="2">
+            <TextBlock>Oznaka:</TextBlock>
+            <TextBox Name="txtBoxId" ToolTip="Polje za unos oznake resursa" l:HelpProvider.HelpKey="IzmenaOznakeResursa"></TextBox>
 
-                <TextBlock>Opis:</TextBlock>
-                <TextBox Name="txtBoxDescription" TextWrapping="Wrap" ToolTip="Polje za unos opisa resursa" l:HelpProvider.HelpKey="IzmenaOpisaResursa"></TextBox>
+            <TextBlock>Naziv:</TextBlock>
+            <TextBox Name="txtBoxName" ToolTip="Polje za unos naziva resursa" l:HelpProvider.HelpKey="IzmenaNazivaResursa"></TextBox>
 
-                <TextBlock Name="resType">Tip:</TextBlock>
-                <Button Click="ResourceTypePicker" Height="20" Width="130" ToolTip="Otvori tabelu tipova">Izaberi tip</Button>
+            <TextBlock>Opis:</TextBlock>
+            <TextBox Name="txtBoxDescription" TextWrapping="Wrap" ToolTip="Polje za unos opisa resursa" l:HelpProvider.HelpKey="IzmenaOpisaResursa"></TextBox>
 
-            </StackPanel>
-            
-            <StackPanel Orientation="Vertical" Margin="20 0 20 0">
-                <TextBlock >Frekvencija pojavljivanja:</TextBlock>
-                <ComboBox Name="resFrequency" ToolTip="Odaberi frekvenciju ponavljanja resursa">
-                    <ComboBoxItem>redak</ComboBoxItem>
-                    <ComboBoxItem>cest</ComboBoxItem>
-                    <ComboBoxItem>univerzalan</ComboBoxItem>
-                </ComboBox>
+            <TextBlock Name="resType">Tip:</TextBlock>
+            <Button Click="ResourceTypePicker"  ToolTip="Otvori tabelu tipova" l:HelpProvider.HelpKey="IzaberiTipResursa" >Izaberi tip</Button>
 
-                <TextBlock >Jedinica mere:</TextBlock>
-                <ComboBox Name="resUnit" ToolTip="Odaberi jedinicu mere resursa">
-                    <ComboBoxItem>merica</ComboBoxItem>
-                    <ComboBoxItem>barel</ComboBoxItem>
-                    <ComboBoxItem>tona</ComboBoxItem>
-                    <ComboBoxItem>kilogram</ComboBoxItem>
-                </ComboBox>
+            <Button Click="EtiquettePicker" ToolTip="Otvori tabelu etiketa" Margin="0 10 0 0" l:HelpProvider.HelpKey="OdaberiEtikete" >Odabir etiketa</Button>
 
-                <TextBlock >Mapa:</TextBlock>
-                <ComboBox Name="resMap" ToolTip="Odaberi mapu na kojoj će se resurs prikazati">
-                    <ComboBoxItem>1</ComboBoxItem>
-                    <ComboBoxItem>2</ComboBoxItem>
-                    <ComboBoxItem>3</ComboBoxItem>
-                    <ComboBoxItem>4</ComboBoxItem>
-                </ComboBox>
-
-                <TextBlock >Cena ($):</TextBlock>
-                <TextBox Name="resPrice" Width="130" MaxWidth="130" ToolTip="Polje za unos cene resursa" l:HelpProvider.HelpKey="IzmenaCeneResursa"></TextBox>
-
-                <Button Click="EtiquettePicker" ToolTip="Otvori tabelu etiketa">Odabir etiketa</Button>
-                
-            </StackPanel>
-            <StackPanel>
-                <TextBlock>Datum otkrivanja:</TextBlock>
-                <DatePicker Name="resDateFound" Margin="0 5 0 0 " ToolTip="Odaberi datum otkrivanja"></DatePicker>
-                <CheckBox Name="resRenewable" Margin="0 5 0 0" ToolTip="Označi resurs obnovljivim" Checked="RenewableMsgUnmark" Unchecked="DefaultRenewableMsg">Obnovljiv resurs</CheckBox>
-                <CheckBox Name="resStrategicImportance" Margin="0 5 0 0" ToolTip="Označi resurs strateški bitnim" Checked="StrategicImportanceMsgUnmark" Unchecked="DefaultStrategicImportanceMsg">Strateški bitan</CheckBox>
-                <CheckBox Name="resExploatation" Margin="0 5 0 0" ToolTip="Označi resurs eksploatisanim" Checked="ExploatationMsgUnmark" Unchecked="DefaultExploatationMsg">Moguća eksploatacija</CheckBox>
-            </StackPanel>
-            
-            <StackPanel Orientation="Vertical" Height="200" Width="200">
-                <Image Name="resImage" Source="./resources/images/no-image.png" Margin="0 10 0 0" Width="100" Height="100" />
-                <StackPanel Orientation="Horizontal">
-                    <Button  Click="AddImage" Margin="0 10 70 0" ToolTip="Odaberi novu sliku">Izmeni sliku</Button>
-                    <Button  Click="RemoveImage" Margin="0 10 70 0" ToolTip="Brisanje postojeće slike">Obriši sliku</Button>
-                </StackPanel>
-                
-            </StackPanel>
-           
-            <StackPanel Orientation="Vertical">
-                <Button Click="DeleteResource" ToolTip="Brisanje odabranog resursa">Obriši</Button>
-                <Button Click="ResourceEdit" ToolTip="Izmena odabranog resursa">Izmeni</Button>
-            </StackPanel>
         </StackPanel>
-        
-        
+
+        <StackPanel Orientation="Vertical" Margin="20 0 20 0" Grid.Row="2" Grid.Column="1" DataContext="{Binding ElementName=dgrMain,Path=SelectedItem}">
+            <TextBlock >Frekvencija pojavljivanja:</TextBlock>
+            <ComboBox Name="resFrequency" ToolTip="Odaberi frekvenciju ponavljanja resursa" l:HelpProvider.HelpKey="FrekvencijaPonavljanja">
+                <ComboBoxItem>redak</ComboBoxItem>
+                <ComboBoxItem>čest</ComboBoxItem>
+                <ComboBoxItem>univerzalan</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock >Jedinica mere:</TextBlock>
+            <ComboBox Name="resUnit" ToolTip="Odaberi jedinicu mere resursa" l:HelpProvider.HelpKey="JedinicaMere">
+                <ComboBoxItem>merica</ComboBoxItem>
+                <ComboBoxItem>barel</ComboBoxItem>
+                <ComboBoxItem>tona</ComboBoxItem>
+                <ComboBoxItem>kilogram</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock >Mapa:</TextBlock>
+            <ComboBox Name="resMap" ToolTip="Odaberi mapu na kojoj će se resurs prikazati" l:HelpProvider.HelpKey="OdabirMape">
+                <ComboBoxItem>1</ComboBoxItem>
+                <ComboBoxItem>2</ComboBoxItem>
+                <ComboBoxItem>3</ComboBoxItem>
+                <ComboBoxItem>4</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock >Cena ($):</TextBlock>
+            <TextBox Name="resPrice"  ToolTip="Polje za unos cene resursa" l:HelpProvider.HelpKey="IzmenaCeneResursa"></TextBox>
+
+            
+
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2" Grid.Column="2" Margin="20 0 20 0">
+            <TextBlock>Datum otkrivanja:</TextBlock>
+            <DatePicker Name="resDateFound" Margin="0 5 0 0 " ToolTip="Odaberi datum otkrivanja" l:HelpProvider.HelpKey="OdabirDatuma"></DatePicker >
+            <CheckBox Name="resRenewable" Margin="0 5 0 0" ToolTip="Označi resurs obnovljivim" Checked="RenewableMsgUnmark" Unchecked="DefaultRenewableMsg" l:HelpProvider.HelpKey="ObnovljivResurs" >Obnovljiv resurs</CheckBox>
+            <CheckBox Name="resStrategicImportance" Margin="0 5 0 0" ToolTip="Označi resurs strateški bitnim" Checked="StrategicImportanceMsgUnmark" Unchecked="DefaultStrategicImportanceMsg" l:HelpProvider.HelpKey="StrateskiBitan">Strateški bitan</CheckBox>
+            <CheckBox Name="resExploatation" Margin="0 5 0 0" ToolTip="Označi resurs eksploatisanim" Checked="ExploatationMsgUnmark" Unchecked="DefaultExploatationMsg" l:HelpProvider.HelpKey="MogucaEksploatacija">Moguća eksploatacija</CheckBox>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Height="200" Width="200" Grid.Row="2" Grid.Column="3">
+            <Image Name="resImage" Source="./resources/images/no-image.png" Margin="0 10 0 0" Width="100" Height="100" />
+            <StackPanel Orientation="Horizontal">
+                <Button  Click="AddImage" Margin="0 10 70 0" ToolTip="Odaberi novu sliku" l:HelpProvider.HelpKey="IzmeniSlikuResursa">Izmeni sliku</Button>
+                <Button  Click="RemoveImage" Margin="0 10 70 0" ToolTip="Brisanje postojeće slike" l:HelpProvider.HelpKey="ObrisiSlikuResursa">Obriši sliku</Button>
+            </StackPanel>
+            
+        </StackPanel>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Center" >
+            <Button Click="ResourceEdit" Margin="5,5,5,5" ToolTip="Izmena odabranog resursa" Width="50" l:HelpProvider.HelpKey="IzmeniResurs">Izmeni</Button>
+            <Button Click="DeleteResource" Margin="5,5,5,5" ToolTip="Brisanje odabranog resursa" Width="50"  l:HelpProvider.HelpKey="ObrisiResurs">Obriši </Button>
+        </StackPanel>
     </Grid>
 </Window>

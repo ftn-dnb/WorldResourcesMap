@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,17 +19,108 @@ namespace WorldResourcesMap
     /// <summary>
     /// Interaction logic for AddResourceForm.xaml
     /// </summary>
-    public partial class AddResourceForm : Window
+    public partial class AddResourceForm : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private Resource resource;
 
         private DataManager manager;
-        private Resource resource;
+        public DataManager Manager
+        {
+            get
+            {
+                return manager;
+            }
+            set
+            {
+                if (value != manager)
+                {
+                    manager = value;
+                    OnPropertyChanged("Manager");
+                }
+            }
+        }
+
+        private string _test0;
+        public string Test0
+        {
+            get
+            {
+                return _test0;
+            }
+            set
+            {
+                if (value != _test0)
+                {
+                    _test0 = value;
+                    OnPropertyChanged("Test0");
+                }
+            }
+        }
+
+        private string _test1;
+        public string Test1
+        {
+            get
+            {
+                return _test1;
+            }
+            set
+            {
+                if (value != _test1)
+                {
+                    _test1 = value;
+                    OnPropertyChanged("Test1");
+                }
+            }
+        }
+
+        private string _test2;
+        public string Test2
+        {
+            get
+            {
+                return _test2;
+            }
+            set
+            {
+                if (value != _test2)
+                {
+                    _test2 = value;
+                    OnPropertyChanged("Test2");
+                }
+            }
+        }
+
+        private float _test3;
+        public float Test3
+        {
+            get
+            {
+                return _test3;
+            }
+            set
+            {
+                if (value != _test3)
+                {
+                    _test3 = value;
+                    OnPropertyChanged("Test3");
+                }
+            }
+        }
+
         public AddResourceForm(DataManager manager)
         {
             InitializeComponent();
             this.manager = manager;
-            this.DataContext = this.manager;
+            this.DataContext = this;
             resource = new Resource();
+        }
+
+        protected void OnPropertyChanged(string info)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
 
         private void AddImage(object sender, RoutedEventArgs e)
@@ -101,7 +193,7 @@ namespace WorldResourcesMap
 
             if (resMap.SelectedItem == null)
             {
-                MessageBox.Show("Morate uneti cenu resursa", "Nedovršen unos podataka",
+                MessageBox.Show("Morate izabrati mapu na kojoj će se prikazati resurs", "Nedovršen unos podataka",
                      MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
@@ -109,7 +201,7 @@ namespace WorldResourcesMap
 
             if(resPrice.Text.Length == 0)
             {
-                MessageBox.Show("Morate popuniti polje za oznaku resursa", "Nedovršen unos podataka",
+                MessageBox.Show("Morate popuniti polje za cenu resursa", "Nedovršen unos podataka",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
