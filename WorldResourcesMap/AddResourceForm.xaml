@@ -35,7 +35,7 @@
                          AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Height="50" ToolTip="Polje za unos opisa resursa" l:HelpProvider.HelpKey="OpisResurs"></TextBox>
 
             <TextBlock Margin="0 5 0 0" Name="resTypeName">Tip:</TextBlock>
-            <Button Click="TypeSelection" ToolTip="Otvori tabelu tipova">Izaberi tip</Button>
+            <Button Click="TypeSelection" ToolTip="Otvori tabelu tipova" Width="150">Izaberi tip</Button>
 
             <TextBlock Margin="0 5 0 0" >Datum otkrivanja:</TextBlock>
             <DatePicker Name="resDateFound" Margin="0 5 0 0" ToolTip="Odaberi datum otkrivanja" ></DatePicker>
