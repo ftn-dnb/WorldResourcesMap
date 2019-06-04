@@ -211,13 +211,30 @@ namespace WorldResourcesMap
             float price_test;
             if (!int.TryParse(resId.Text, out id_test))
             {
-                //dodati upozorenje
+                MessageBox.Show("Oznaka mora biti celobrojna vrednost", "Nedovršen unos podataka",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (!float.TryParse(resPrice.Text, out price_test))
             {
-                //dodati upozorenje
+                MessageBox.Show("Cena mora biti nenegativna realna vrednost", "Nedovršen unos podataka",
+                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (float.Parse(resPrice.Text) < 0)
+            {
+                MessageBox.Show("Cena mora biti nenegativna realna vrednost", "Greška",
+                 MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var query = this.manager.MapData.Resources.Where(i => i.Id == int.Parse(resId.Text));
+            if (query.ToList().Count != 0)
+            {
+                MessageBox.Show("Resurs sa oznakom " + query.ToList().First().Id + " već postoji.", "Duplikat", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 

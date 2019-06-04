@@ -348,6 +348,17 @@ namespace WorldResourcesMap
             }
 
 
+            var filtered = this.manager.MapData.Resources.Where(r => string.Compare(r.Id.ToString(), txtBoxId.Text) == 0);
+            if (filtered.ToList().Count != 0)
+            {
+                if (string.Compare(filtered.ToList().First().Id.ToString(), this.selected_id) != 0)
+                {
+                    MessageBox.Show("Oznaka resursa mora biti jedinstvena na nivou sistema", "Greška",
+                 MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+
             resource.Id = int.Parse(txtBoxId.Text);
 
             resource.Name = txtBoxName.Text;
