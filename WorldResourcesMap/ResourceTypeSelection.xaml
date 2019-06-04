@@ -22,7 +22,7 @@
                   IsReadOnly="True" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True" Grid.RowSpan="2" SelectionChanged="ResourceSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Oznaka" Width="*" Binding="{Binding Id}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Nazi" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Opis" Width="*" Binding="{Binding Description}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

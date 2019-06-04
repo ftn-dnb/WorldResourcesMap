@@ -101,7 +101,7 @@ namespace WorldResourcesMap
 
             if (resMap.SelectedItem == null)
             {
-                MessageBox.Show("Morate uneti cenu resursa", "Nedovršen unos podataka",
+                MessageBox.Show("Morate izabrati mapu na kojoj će se prikazati resurs", "Nedovršen unos podataka",
                      MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
 
@@ -109,7 +109,7 @@ namespace WorldResourcesMap
 
             if(resPrice.Text.Length == 0)
             {
-                MessageBox.Show("Morate popuniti polje za oznaku resursa", "Nedovršen unos podataka",
+                MessageBox.Show("Morate popuniti polje za cenu resursa", "Nedovršen unos podataka",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
