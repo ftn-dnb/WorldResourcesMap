@@ -240,15 +240,26 @@ namespace WorldResourcesMap
             float price_test;
             if (!int.TryParse(txtBoxId.Text, out id_test))
             {
-                //dodati upozorenje
+                MessageBox.Show("Oznaka mora biti ceo broj", "Greška",
+                  MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             if (!float.TryParse(resPrice.Text, out price_test))
             {
-                //dodati upozorenje
+                MessageBox.Show("Cena mora biti nenegativna realna vrednost", "Greška",
+                  MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            if(float.Parse(resPrice.Text) < 0)
+            {
+                MessageBox.Show("Cena mora biti nenegativna realna vrednost", "Greška",
+                 MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
             resource.Id = int.Parse(txtBoxId.Text);
 
             resource.Name = txtBoxName.Text;
@@ -260,6 +271,7 @@ namespace WorldResourcesMap
 
             resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString());
             resource.Price = float.Parse(resPrice.Text);
+            
 
             resource.Icon = resImage.Source.ToString();
 
