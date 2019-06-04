@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         xmlns:l="clr-namespace:WorldResourcesMap"
         xmlns:val="clr-namespace:WorldResourcesMap.Validation"
-        Title="ResourceSettings" Height="525" Width="800" MinHeight="525" MinWidth="800">
+        Title="Upravljanje postojećim resursima" Height="525" Width="800" MinHeight="525" MinWidth="800">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Help" Executed="Help_ResourceSettingsForm"/>
     </Window.CommandBindings>

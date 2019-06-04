@@ -7,7 +7,7 @@
         xmlns:l="clr-namespace:WorldResourcesMap"
         xmlns:val="clr-namespace:WorldResourcesMap.Validation"
         mc:Ignorable="d"
-        Title="AddResourceForm" Height="400" Width="650" MinHeight="400" MinWidth="650">
+        Title="Dodavanje resursa" Height="400" Width="650" MinHeight="400" MinWidth="650">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Help" Executed="Help_AddResourceForm"/>
     </Window.CommandBindings>
