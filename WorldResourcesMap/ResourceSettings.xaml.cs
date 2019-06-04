@@ -125,6 +125,13 @@ namespace WorldResourcesMap
         {
             Resource resource = dgrMain.SelectedItem as Resource;
             Resource fake_resource = new Resource();
+            if(resource == null)
+            {
+                MessageBox.Show("Morate prvo odabrati resurs", "Greška",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             foreach(Etiquette tag in resource.Tags)
             {
                 fake_resource.Tags.Add(tag);
@@ -139,6 +146,12 @@ namespace WorldResourcesMap
         {
             Resource resource = dgrMain.SelectedItem as Resource;
             Resource fake_resource = new Resource();
+            if(resource == null)
+            {
+                MessageBox.Show("Morate prvo odabrati resurs", "Greška",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             fake_resource.Type = resource.Type;
             var form = new ResourceTypeSelection(manager, fake_resource);
             form.ShowDialog();
@@ -149,6 +162,7 @@ namespace WorldResourcesMap
 
         private void ResourceEdit(object sender, RoutedEventArgs e)
         {
+
             if (txtBoxId.Text.Length == 0)
             {
                 MessageBox.Show("Morate popuniti polje za oznaku resursa", "Nedovršen unos podataka",
@@ -215,6 +229,13 @@ namespace WorldResourcesMap
             }
             Resource resource = dgrMain.SelectedItem as Resource;
 
+            if (resource == null)
+            {
+                MessageBox.Show("Morate prvo odabrati resurs", "Greška",
+                   MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             int id_test;
             float price_test;
             if (!int.TryParse(txtBoxId.Text, out id_test))
@@ -260,8 +281,45 @@ namespace WorldResourcesMap
         {
             Resource resource = dgrMain.SelectedItem as Resource;
 
+            if(resource == null)
+            {
+                MessageBox.Show("Morate prvo odabrati resurs", "Greška",
+                   MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (MessageBox.Show("Da li ste sigurni da želite da obrišete resurs sa oznakom " + resource.Id + " ?",
+                    "Upozorenje o brisanju", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+
             this.manager.MapData.Resources.Remove(resource);
             this.manager.SaveResources();
+
+
+            //resetovanje forme
+            txtBoxId.Text = "";
+            txtBoxName.Text = "";
+            txtBoxDescription.Text = "";
+
+            resource = new Resource();
+            resType.Text = "Tip:";
+
+            resDateFound.SelectedDate = null;
+            resFrequency.SelectedItem = null;
+            resUnit.SelectedItem = null;
+            resMap.SelectedItem = null;
+            resPrice.Text = "";
+
+            resRenewable.IsChecked = false;
+            resStrategicImportance.IsChecked = false;
+            resExploatation.IsChecked = false;
+
+
+            resImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png", UriKind.Relative));
+
         }
 
         private void DefaultRenewableMsg(object sender, RoutedEventArgs e)
