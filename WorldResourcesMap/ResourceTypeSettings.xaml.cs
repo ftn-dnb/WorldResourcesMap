@@ -276,10 +276,14 @@ namespace WorldResourcesMap
 
         private void RemoveImage(object sender, RoutedEventArgs e)
         {
-            ResourceType item = dgrMain.SelectedItem as ResourceType;
-            item.Icon = "./resources/images/no-image.png";
-            resTypeImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
-
+            if (MessageBox.Show("Da li ste sigurni da želite da obrišete sliku ?",
+                    "Upozorenje o brisanju slike", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                ResourceType item = dgrMain.SelectedItem as ResourceType;
+                item.Icon = "./resources/images/no-image.png";
+                resTypeImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
+            }
         }
 
         private void DataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
