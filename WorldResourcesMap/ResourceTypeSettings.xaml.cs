@@ -172,6 +172,17 @@ namespace WorldResourcesMap
 
         private void EditItem(object sender, RoutedEventArgs e)
         {
+            ResourceType item = dgrMain.SelectedItem as ResourceType;
+
+            if (item == null)
+            {
+                MessageBox.Show("Ni jedan tip resursa nije selektovan pa se izmena ne može izvršiti",
+                    "Upozorenje o izmeni", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                return;
+            }
+
             if (txtBoxId.Text.Length == 0)
             {
                 MessageBox.Show("Morate uneti oznaku tipa resursa",
@@ -196,7 +207,7 @@ namespace WorldResourcesMap
                 return;
             }
 
-            ResourceType item = dgrMain.SelectedItem as ResourceType;
+            
             if (!this.valid)
             {
                 MessageBox.Show("Nije moguće izmeniti tip resursa " + item.Id,
@@ -224,6 +235,15 @@ namespace WorldResourcesMap
         {
             ResourceType item = dgrMain.SelectedItem as ResourceType;
             
+            if (item == null)
+            {
+                MessageBox.Show("Ni jedan tip resursa nije selektovan pa se brisanje ne može izvršiti",
+                    "Upozorenje o brisanju", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                return;
+            }
+
             if (MessageBox.Show("Da li ste sigurni da želite da obrišete tip resursa sa oznakom " + item.Id + " ?", 
                     "Upozorenje o brisanju", MessageBoxButton.YesNo,
                     MessageBoxImage.Warning) == MessageBoxResult.No)
@@ -233,6 +253,11 @@ namespace WorldResourcesMap
 
             this.manager.MapData.Types.Remove(item);
             this.manager.SaveResourceTypes();
+
+            if (this.manager.MapData.Types.Count == 0)
+            {
+                EnableEditForm(false);
+            }
         }
 
         private void AddImage(object sender, RoutedEventArgs e)
@@ -253,16 +278,18 @@ namespace WorldResourcesMap
         {
             ResourceType item = dgrMain.SelectedItem as ResourceType;
             item.Icon = "./resources/images/no-image.png";
+            resTypeImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
+
         }
 
         private void DataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (txtBoxId == null) // Komponenta jos nije inicijalizovana
+                return;
+
             EnableEditForm(true);
 
             ResourceType item = dgrMain.SelectedItem as ResourceType;
-
-            if (txtBoxId == null) // Komponenta jos nije inicijalizovana
-                return;
 
             try
             {
@@ -278,7 +305,7 @@ namespace WorldResourcesMap
 
         private void ResourceTypeSettingsHelp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[2]);
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[1]);
 
             if (focusedControl is DependencyObject)
             {

@@ -114,7 +114,22 @@ namespace WorldResourcesMap
                 return;
             }
 
-            
+
+            int id_test;
+            float price_test;
+            if (!int.TryParse(resId.Text, out id_test))
+            {
+                //dodati upozorenje
+                return;
+            }
+
+            if (!float.TryParse(resPrice.Text, out price_test))
+            {
+                //dodati upozorenje
+                return;
+            }
+
+
             resource.Id = int.Parse(resId.Text);
             resource.Name = resName.Text;
             resource.Description = resDescription.Text;
@@ -123,7 +138,7 @@ namespace WorldResourcesMap
             resource.Frequency = resFrequency.SelectionBoxItem.ToString();
             resource.UnitOfMeasure = resUnit.SelectionBoxItem.ToString();
             resource.MapID = int.Parse(resMap.SelectionBoxItem.ToString()); 
-            resource.Price = int.Parse(resPrice.Text);
+            resource.Price = float.Parse(resPrice.Text);
             if(resImage.Source.ToString().Contains("no-image.png"))
             {
                 resource.Icon = resource.Type.Icon;
@@ -183,6 +198,7 @@ namespace WorldResourcesMap
             {
                 resTypeName.Text = "Tip: Niste izabrali tip!";
                 resTypeName.Foreground = Brushes.Red;
+                return;
             }
             resTypeName.Text = "Tip: " + resource.Type.Name;
             resTypeName.Foreground = Brushes.Black; // bug ako je null tip

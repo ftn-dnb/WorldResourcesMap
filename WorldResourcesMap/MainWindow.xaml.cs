@@ -90,6 +90,7 @@ namespace WorldResourcesMap
         {
             var form = new ResourceSettings(DataManager);
             form.ShowDialog();
+            ChangedMapEvent(null, null); // @Hack: refresh current elements on map after adding new resource
         }
 
         private void OpenAddResource(object sender, RoutedEventArgs e)
