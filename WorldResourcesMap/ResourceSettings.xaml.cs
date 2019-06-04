@@ -157,7 +157,12 @@ namespace WorldResourcesMap
 
         private void RemoveImage(object sender, RoutedEventArgs e)
         {
-            resImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
+            if (MessageBox.Show("Da li ste sigurni da želite da obrišete sliku ?",
+                    "Upozorenje o brisanju slike", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                resImage.Source = new BitmapImage(new Uri("./resources/images/no-image.png",UriKind.Relative));
+            }
         }
 
         private ICollectionView _View;
